@@ -10,8 +10,7 @@
   "ExpandedNodes": [
     "",
     "\\include",
-    "\\include\\utils",
-    "\\lib",
+    "\\include\\core",
     "\\resources",
     "\\src",
     "\\src\\core",
@@ -20,6 +19,6 @@
     "\\src\\states",
     "\\src\\utils"
   ],
-  "SelectedNode": "\\resources",
+  "SelectedNode": "\\include\\core\\State.h",
   "PreviewInSolutionExplorer": false
 }
