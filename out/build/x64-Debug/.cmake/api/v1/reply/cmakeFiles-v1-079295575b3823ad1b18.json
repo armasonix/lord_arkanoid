@@ -6,7 +6,13 @@
 			"paths" : 
 			[
 				"D:/Workspace/xyz/arkanoid/src/core/Resources.cpp",
-				"D:/Workspace/xyz/arkanoid/src/core/StateMachine.cpp"
+				"D:/Workspace/xyz/arkanoid/src/core/StateMachine.cpp",
+				"D:/Workspace/xyz/arkanoid/src/game/Ball.cpp",
+				"D:/Workspace/xyz/arkanoid/src/game/Collision.cpp",
+				"D:/Workspace/xyz/arkanoid/src/game/Paddle.cpp",
+				"D:/Workspace/xyz/arkanoid/src/game/World.cpp",
+				"D:/Workspace/xyz/arkanoid/src/input/InputSystem.cpp",
+				"D:/Workspace/xyz/arkanoid/src/utils/DebugOverlay.cpp"
 			],
 			"recurse" : true
 		}

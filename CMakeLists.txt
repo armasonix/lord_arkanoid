@@ -20,7 +20,7 @@ if (NOT SOURCES)
   message(FATAL_ERROR "No .cpp files found in ${PROJ_ROOT}/src")
 endif()
 
-add_executable(arkanoid ${SOURCES})
+add_executable(arkanoid ${SOURCES} "include/game/Collision.h" "src/game/Collision.cpp" "include/game/Paddle.h" "src/game/Paddle.cpp" "include/game/Ball.h" "src/game/Ball.cpp" "include/game/World.h" "src/game/World.cpp")
 
 # include
 target_include_directories(arkanoid PRIVATE

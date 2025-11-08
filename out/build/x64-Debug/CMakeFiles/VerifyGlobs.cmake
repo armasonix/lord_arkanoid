@@ -7,6 +7,12 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/Workspace/xyz/arkanoid/src
 set(OLD_GLOB
   "D:/Workspace/xyz/arkanoid/src/core/Resources.cpp"
   "D:/Workspace/xyz/arkanoid/src/core/StateMachine.cpp"
+  "D:/Workspace/xyz/arkanoid/src/game/Ball.cpp"
+  "D:/Workspace/xyz/arkanoid/src/game/Collision.cpp"
+  "D:/Workspace/xyz/arkanoid/src/game/Paddle.cpp"
+  "D:/Workspace/xyz/arkanoid/src/game/World.cpp"
+  "D:/Workspace/xyz/arkanoid/src/input/InputSystem.cpp"
+  "D:/Workspace/xyz/arkanoid/src/utils/DebugOverlay.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
