@@ -5,6 +5,7 @@ cmake_policy(SET CMP0009 NEW)
 # SOURCES at CMakeLists.txt:18 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/Workspace/xyz/arkanoid/src/*.cpp")
 set(OLD_GLOB
+  "D:/Workspace/xyz/arkanoid/src/core/Application.cpp"
   "D:/Workspace/xyz/arkanoid/src/core/Resources.cpp"
   "D:/Workspace/xyz/arkanoid/src/core/StateMachine.cpp"
   "D:/Workspace/xyz/arkanoid/src/game/Ball.cpp"
@@ -12,7 +13,14 @@ set(OLD_GLOB
   "D:/Workspace/xyz/arkanoid/src/game/Paddle.cpp"
   "D:/Workspace/xyz/arkanoid/src/game/World.cpp"
   "D:/Workspace/xyz/arkanoid/src/input/InputSystem.cpp"
+  "D:/Workspace/xyz/arkanoid/src/main.cpp"
+  "D:/Workspace/xyz/arkanoid/src/states/BootState.cpp"
+  "D:/Workspace/xyz/arkanoid/src/states/GameOverState.cpp"
+  "D:/Workspace/xyz/arkanoid/src/states/MenuState.cpp"
+  "D:/Workspace/xyz/arkanoid/src/states/PauseState.cpp"
+  "D:/Workspace/xyz/arkanoid/src/states/PlayState.cpp"
   "D:/Workspace/xyz/arkanoid/src/utils/DebugOverlay.cpp"
+  "D:/Workspace/xyz/arkanoid/src/utils/Profiler.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

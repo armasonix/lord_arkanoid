@@ -2,6 +2,9 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+namespace ark 
+{
+
 enum class ControlMode { Keyboard, Mouse };
 
 class InputSystem 
@@ -24,3 +27,5 @@ private:
     ControlMode m_mode{ ControlMode::Keyboard };
     float m_mouseX{ 0.f };
 };
+
+} // namespace ark

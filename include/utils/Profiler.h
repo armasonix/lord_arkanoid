@@ -3,6 +3,9 @@
 #include <string>
 #include <deque>
 
+namespace ark 
+{
+
 struct Sample 
 {
     std::string name;
@@ -26,17 +29,15 @@ private:
 class ScopedTimer 
 {
 public:
-    explicit ScopedTimer(std::string name) : m_name(std::move(name)), m_t0(std::chrono::high_resolution_clock::now()) {}
-    ~ScopedTimer() 
-    {
-        using namespace std::chrono;
-        auto t1 = high_resolution_clock::now();
-        double ms = duration<double, std::milli>(t1 - m_t0).count();
-        Profiler::instance().push({ m_name, ms });
-    }
+    explicit ScopedTimer(std::string name);
+    ~ScopedTimer();
 private:
     std::string m_name;
     std::chrono::high_resolution_clock::time_point m_t0;
 };
 
-#define PROFILE_SCOPE(name) ScopedTimer _scoped_timer_##__LINE__{name}
+} // namespace ark
+
+#define ARK_CONCAT_INNER(a,b) a##b
+#define ARK_CONCAT(a,b) ARK_CONCAT_INNER(a,b)
+#define PROFILE_SCOPE(name) ::ark::ScopedTimer ARK_CONCAT(_ark_scoped_timer_, __COUNTER__){name}

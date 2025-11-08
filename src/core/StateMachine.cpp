@@ -2,6 +2,9 @@
 #include "core/State.h"
 #include <SFML/Graphics.hpp>
 
+namespace ark 
+{
+
 StateMachine::StateMachine(Context ctx) : m_ctx(ctx) {}
 
 void StateMachine::pop() { m_ops.push_back({ OpType::Pop, {} }); }
@@ -54,3 +57,5 @@ void StateMachine::render(sf::RenderTarget& rt)
 {
     if (!m_stack.empty()) m_stack.back()->render(rt);
 }
+
+} // namespace ark

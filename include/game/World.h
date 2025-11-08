@@ -3,6 +3,9 @@
 #include "Paddle.h"
 #include "Ball.h"
 
+namespace ark
+{
+
 class World 
 {
 public:
@@ -21,3 +24,5 @@ private:
     Ball   m_ball;
     sf::RectangleShape m_boundsTop, m_boundsLeft, m_boundsRight;
 };
+
+} // namespace ark

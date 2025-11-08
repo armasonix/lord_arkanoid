@@ -2,6 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
+namespace ark 
+{
+
 class DebugOverlay 
 {
 public:
@@ -14,10 +17,17 @@ public:
     void setVisible(bool v) { m_visible = v; }
     bool visible() const { return m_visible; }
 
+    void setFps(float v) { m_fpsVal = v; }
+    float fps() const { return m_fpsVal; }
+
     void draw(sf::RenderTarget& rt, float fps, float dt, float ballSpeed);
 
 private:
     bool m_visible{ false };
     sf::Font* m_font{};
     sf::Text m_text;
+
+    float m_fpsVal{ 0.f };
 };
+
+} // namespace ark

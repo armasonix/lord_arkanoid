@@ -2,6 +2,9 @@
 #include "utils/Profiler.h"
 #include <sstream>
 
+namespace ark 
+{
+
 void DebugOverlay::draw(sf::RenderTarget& rt, float fps, float dt, float ballSpeed) 
 {
     if (!m_visible) return;
@@ -21,3 +24,5 @@ void DebugOverlay::draw(sf::RenderTarget& rt, float fps, float dt, float ballSpe
     m_text.setPosition(8.f, 8.f);
     rt.draw(m_text);
 }
+
+} // namespace ark

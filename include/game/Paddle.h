@@ -1,6 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "input/InputSystem.h"
+#include "game/Collision.h"
+
+namespace ark 
+{
 
 class Paddle 
 {
@@ -17,3 +21,5 @@ private:
     sf::RectangleShape m_shape;
     float m_speed = 900.f;
 };
+
+} // namespace ark

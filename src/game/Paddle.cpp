@@ -1,6 +1,9 @@
 #include "game/Paddle.h"
 #include "game/Collision.h"
 
+namespace ark 
+{
+
 Paddle::Paddle(const sf::Vector2f& size, const sf::Vector2f& startPos) 
 {
     m_shape.setSize(size);
@@ -39,3 +42,5 @@ AABB Paddle::aabb() const
     auto p = m_shape.getPosition() - s * 0.5f;
     return { p, s };
 }
+
+} // namespace ark

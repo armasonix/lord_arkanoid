@@ -1,5 +1,8 @@
 #include "input/InputSystem.h"
 
+namespace ark 
+{
+
 void InputSystem::newFrame() 
 {
     m_pausePressed = false;
@@ -29,3 +32,5 @@ void InputSystem::handleEvent(const sf::Event& e, const sf::RenderWindow& window
     default: break;
     }
 }
+
+} // namespace ark

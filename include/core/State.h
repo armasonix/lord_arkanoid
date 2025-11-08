@@ -1,6 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+namespace ark 
+{
+    class StateMachine;
+    class ResourceManager;
+    class InputSystem;
+    class DebugOverlay;
+
 struct Context 
 {
     sf::RenderWindow* window{};
@@ -27,3 +34,5 @@ public:
 protected:
     Context m_ctx;
 };
+
+} // namespace ark

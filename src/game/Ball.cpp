@@ -1,6 +1,9 @@
 #include "game/Ball.h"
 #include <cmath>
 
+namespace ark
+{
+
 Ball::Ball(float r, const sf::Vector2f& startPos, const sf::Vector2f& startVel)
     : m_vel(startVel)
 {
@@ -66,3 +69,5 @@ void Ball::render(sf::RenderTarget& rt) const
 {
     rt.draw(m_shape);
 }
+
+} // namespace ark

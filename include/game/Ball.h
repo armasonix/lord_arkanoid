@@ -3,6 +3,9 @@
 #include "game/Collision.h"
 #include "game/Paddle.h"
 
+namespace ark
+{
+
 class Ball 
 {
 public:
@@ -24,3 +27,5 @@ private:
     sf::Vector2f m_vel;
     bool m_fellBelow{ false };
 };
+
+} // namespace ark

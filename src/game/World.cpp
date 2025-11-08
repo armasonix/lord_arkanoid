@@ -1,6 +1,9 @@
 #include "game/World.h"
 #include "utils/Profiler.h"
 
+namespace ark
+{
+
 World::World(sf::RenderWindow& window)
     : m_window(window)
     , m_paddle({ 160.f, 20.f }, { window.getSize().x * 0.5f, window.getSize().y - 50.f })
@@ -40,3 +43,5 @@ void World::resetBall()
 {
     m_ball.reset({ m_window.getSize().x * 0.5f, m_window.getSize().y * 0.6f }, { 200.f, -300.f });
 }
+
+} // namespace ark

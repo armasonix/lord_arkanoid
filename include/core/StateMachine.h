@@ -2,9 +2,13 @@
 #include <memory>
 #include <vector>
 #include <functional>
+#include <SFML/Graphics.hpp> 
+#include "core/State.h"  
 
 class State;
-struct Context;
+
+namespace ark 
+{
 
 class StateMachine 
 {
@@ -45,3 +49,5 @@ inline void StateMachine::push(Args&&... args)
         };
     m_ops.push_back({ OpType::Push, std::move(f) });
 }
+
+} // namespace ark
