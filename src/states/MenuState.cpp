@@ -10,7 +10,7 @@ void MenuState::onEnter()
 {
     auto& font = m_ctx.resources->font("mono");
     m_title.setFont(font);
-    m_title.setString("ARKANOID");
+    m_title.setString("LORD ARKANOID");
     m_title.setCharacterSize(48);
     m_title.setFillColor(sf::Color::White);
     m_title.setPosition(80.f, 100.f);

@@ -1,5 +1,6 @@
 #include "states/PlayState.h"
 #include "states/PauseState.h"
+#include "states/WinState.h"
 #include "states/GameOverState.h"
 #include "core/StateMachine.h"
 #include "utils/DebugOverlay.h"
@@ -27,7 +28,6 @@ void PlayState::update(float dt)
     m_dtLast = dt;
     m_world->update(dt, *m_ctx.input);
 
-    // service hotkey
     if (m_ctx.input->debugTogglePressed()) 
     {
         m_ctx.debug->setVisible(!m_ctx.debug->visible());
@@ -36,6 +36,10 @@ void PlayState::update(float dt)
     if (m_world->isBallLost()) 
     {
         m_ctx.states->push<GameOverState>();
+    }
+    else if (m_world->victory()) 
+    {
+        m_ctx.states->push<WinState>();
     }
 }
 

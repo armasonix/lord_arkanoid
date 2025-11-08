@@ -3,26 +3,29 @@
 cmake_policy(SET CMP0009 NEW)
 
 # SOURCES at CMakeLists.txt:18 (file)
-file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/Workspace/xyz/arkanoid/src/*.cpp")
+file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "E:/lord_arkanoid/src/*.cpp")
 set(OLD_GLOB
-  "D:/Workspace/xyz/arkanoid/src/core/Application.cpp"
-  "D:/Workspace/xyz/arkanoid/src/core/Resources.cpp"
-  "D:/Workspace/xyz/arkanoid/src/core/StateMachine.cpp"
-  "D:/Workspace/xyz/arkanoid/src/game/Ball.cpp"
-  "D:/Workspace/xyz/arkanoid/src/game/Collision.cpp"
-  "D:/Workspace/xyz/arkanoid/src/game/Paddle.cpp"
-  "D:/Workspace/xyz/arkanoid/src/game/World.cpp"
-  "D:/Workspace/xyz/arkanoid/src/input/InputSystem.cpp"
-  "D:/Workspace/xyz/arkanoid/src/main.cpp"
-  "D:/Workspace/xyz/arkanoid/src/states/BootState.cpp"
-  "D:/Workspace/xyz/arkanoid/src/states/GameOverState.cpp"
-  "D:/Workspace/xyz/arkanoid/src/states/MenuState.cpp"
-  "D:/Workspace/xyz/arkanoid/src/states/PauseState.cpp"
-  "D:/Workspace/xyz/arkanoid/src/states/PlayState.cpp"
-  "D:/Workspace/xyz/arkanoid/src/utils/DebugOverlay.cpp"
-  "D:/Workspace/xyz/arkanoid/src/utils/Profiler.cpp"
+  "E:/lord_arkanoid/src/core/Application.cpp"
+  "E:/lord_arkanoid/src/core/Resources.cpp"
+  "E:/lord_arkanoid/src/core/StateMachine.cpp"
+  "E:/lord_arkanoid/src/game/Ball.cpp"
+  "E:/lord_arkanoid/src/game/BlockGrid.cpp"
+  "E:/lord_arkanoid/src/game/Collision.cpp"
+  "E:/lord_arkanoid/src/game/Paddle.cpp"
+  "E:/lord_arkanoid/src/game/World.cpp"
+  "E:/lord_arkanoid/src/input/InputSystem.cpp"
+  "E:/lord_arkanoid/src/main.cpp"
+  "E:/lord_arkanoid/src/states/BootState.cpp"
+  "E:/lord_arkanoid/src/states/GameOverState.cpp"
+  "E:/lord_arkanoid/src/states/MenuState.cpp"
+  "E:/lord_arkanoid/src/states/PauseState.cpp"
+  "E:/lord_arkanoid/src/states/PlayState.cpp"
+  "E:/lord_arkanoid/src/states/WinState.cpp"
+  "E:/lord_arkanoid/src/utils/DebugOverlay.cpp"
+  "E:/lord_arkanoid/src/utils/Profiler.cpp"
+  "E:/lord_arkanoid/src/vfx/CameraShake.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "D:/Workspace/xyz/arkanoid/out/build/x64-Debug/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "E:/lord_arkanoid/out/build/x64-Debug/CMakeFiles/cmake.verify_globs")
 endif()
