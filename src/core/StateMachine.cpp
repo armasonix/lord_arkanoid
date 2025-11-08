@@ -1,5 +1,5 @@
-#include "StateMachine.h"
-#include "State.h"
+#include "core/StateMachine.h"
+#include "core/State.h"
 #include <SFML/Graphics.hpp>
 
 StateMachine::StateMachine(Context ctx) : m_ctx(ctx) {}

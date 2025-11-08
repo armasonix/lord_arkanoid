@@ -1,4 +1,4 @@
-#include "Resources.h"
+#include "core/Resources.h"
 #include <stdexcept>
 
 sf::Font& ResourceManager::font(const std::string& key, const std::string& path) 
