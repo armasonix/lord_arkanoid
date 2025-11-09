@@ -43,6 +43,11 @@ void Application::run()
             {
                 if (e.type == sf::Event::Closed) m_window.close();
                 m_input.handleEvent(e, m_window);
+
+                if(e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::F3) 
+                {
+                    m_debug.setVisible(!m_debug.visible());
+                }
                 m_states.handleEvent(e);
             }
         }

@@ -75,8 +75,8 @@ namespace ark
         switch (t) 
         {
         case BlockType::Low: return std::make_unique<Block>(t, 1, pos, size, sf::Color(120, 220, 255), effect);
-        case BlockType::Med: return std::make_unique<Block>(t, 3, pos, size, sf::Color(255, 170, 60), effect);
-        case BlockType::Hev: return std::make_unique<Block>(t, 6, pos, size, sf::Color(255, 80, 80), effect);
+        case BlockType::Med: return std::make_unique<Block>(t, 2, pos, size, sf::Color(255, 170, 60), effect);
+        case BlockType::Hev: return std::make_unique<Block>(t, 3, pos, size, sf::Color(255, 80, 80), effect);
         }
         return nullptr;
     }
