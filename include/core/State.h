@@ -7,14 +7,18 @@ namespace ark
     class ResourceManager;
     class InputSystem;
     class DebugOverlay;
+    class MusicService;
+    class SoundService;
 
 struct Context 
 {
     sf::RenderWindow* window{};
-    class StateMachine* states{};
-    class ResourceManager* resources{};
-    class InputSystem* input{};
-    class DebugOverlay* debug{};
+    StateMachine* states{};
+    ResourceManager* resources{};
+    InputSystem* input{};
+    DebugOverlay* debug{};
+    MusicService* music{};
+    SoundService* sfx{};
 };
 
 class State 

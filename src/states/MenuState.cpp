@@ -2,6 +2,7 @@
 #include "core/StateMachine.h"
 #include "core/Resources.h"
 #include "states/PlayState.h"
+#include "audio/MusicService.h"
 
 namespace ark
 {
@@ -20,6 +21,8 @@ void MenuState::onEnter()
     m_hint.setCharacterSize(22);
     m_hint.setFillColor(sf::Color(200, 200, 220));
     m_hint.setPosition(80.f, 180.f);
+
+    if (m_ctx.music) m_ctx.music->playTheme(true);
 }
 
 void MenuState::handleEvent(const sf::Event& e) 

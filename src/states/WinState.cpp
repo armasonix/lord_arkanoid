@@ -3,6 +3,8 @@
 #include "core/StateMachine.h"
 #include "states/PlayState.h"
 #include "states/MenuState.h"
+#include "audio/SoundService.h"
+#include "audio/MusicService.h"
 
 namespace ark 
 {
@@ -21,6 +23,9 @@ namespace ark
         m_prompt.setCharacterSize(24);
         m_prompt.setFillColor(sf::Color(220, 220, 240));
         m_prompt.setPosition(80.f, 170.f);
+        if (m_ctx.music) m_ctx.music->stop();
+
+        if (m_ctx.sfx) m_ctx.sfx->playEnsure(Sfx::Win);
     }
 
     void WinState::handleEvent(const sf::Event& e) 

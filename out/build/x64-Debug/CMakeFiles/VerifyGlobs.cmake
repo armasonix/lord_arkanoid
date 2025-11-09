@@ -5,6 +5,7 @@ cmake_policy(SET CMP0009 NEW)
 # SOURCES at CMakeLists.txt:18 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "E:/lord_arkanoid/src/*.cpp")
 set(OLD_GLOB
+  "E:/lord_arkanoid/src/audio/MusicService.cpp"
   "E:/lord_arkanoid/src/core/Application.cpp"
   "E:/lord_arkanoid/src/core/Resources.cpp"
   "E:/lord_arkanoid/src/core/StateMachine.cpp"

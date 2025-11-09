@@ -18,6 +18,9 @@ public:
 private:
     std::unique_ptr<World> m_world; // RAII
     float m_dtLast{ 0.f };
+
+    bool m_goQueued{ false };
+    bool m_winQueued{ false };
 };
 
 } // namespace ark

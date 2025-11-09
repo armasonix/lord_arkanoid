@@ -3,6 +3,7 @@
 #include "Paddle.h"
 #include "Ball.h"
 #include "BlockGrid.h"
+#include "gfx/Starfield.h"
 #include "vfx/CameraShake.h"
 
 namespace ark
@@ -23,6 +24,8 @@ public:
     bool victory() const { return m_blocks.allDestroyed(); }
 private:
     void handleBallBlocksCollision();
+
+    gfx::Starfield m_starfield;
 
     sf::RenderWindow& m_window;
     Paddle m_paddle;

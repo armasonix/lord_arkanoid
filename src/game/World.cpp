@@ -8,6 +8,7 @@ World::World(sf::RenderWindow& window)
     : m_window(window)
     , m_paddle({ 160.f, 20.f }, { window.getSize().x * 0.5f, window.getSize().y - 50.f })
     , m_ball(10.f, { window.getSize().x * 0.5f, window.getSize().y * 0.6f }, { 200.f, -300.f })
+    , m_baseView(window.getDefaultView())
 {
     // bounds
     m_boundsTop.setSize({ (float)window.getSize().x, 6.f });
@@ -30,6 +31,8 @@ World::World(sf::RenderWindow& window)
         /*topMargin*/ 60.f,
         /*sideMargin*/ 12.f,
         /*bottomSafety*/ 120.f);
+
+    m_starfield.init(window.getSize(), /*count*/ 900);
 }
 
 void World::update(float dt, class InputSystem& input) 
@@ -42,21 +45,29 @@ void World::update(float dt, class InputSystem& input)
 
     // shake
     m_shake.update(dt);
+    m_starfield.update(dt, m_window.getSize());
 }
 
-void World::render(sf::RenderTarget& rt)
+void World::render(sf::RenderTarget& rt) 
 {
     PROFILE_SCOPE("World::render");
 
-    // care of current view
+    // current value
     sf::View prevView;
-    if (auto* wnd = dynamic_cast<sf::RenderWindow*>(&rt))
+    sf::Vector2f shakeOff{ 0.f, 0.f };
+    if (auto* wnd = dynamic_cast<sf::RenderWindow*>(&rt)) 
     {
         prevView = wnd->getView();
-        sf::View view = prevView; // copy current
-        auto off = m_shake.offset();
-        view.setCenter(prevView.getCenter() + off);
-        wnd->setView(view);
+        shakeOff = m_shake.offset();
+        // paralax
+        sf::View bg = prevView;
+        bg.setCenter(prevView.getCenter() + shakeOff * 0.2f);
+        wnd->setView(bg);
+        m_starfield.render(rt);
+        // main shake
+        sf::View fg = prevView;
+        fg.setCenter(prevView.getCenter() + shakeOff);
+        wnd->setView(fg);
     }
 
     rt.draw(m_boundsTop);
@@ -67,6 +78,7 @@ void World::render(sf::RenderTarget& rt)
     m_paddle.render(rt);
     m_ball.render(rt);
 
+    // return main view
     if (auto* wnd = dynamic_cast<sf::RenderWindow*>(&rt)) 
     {
         wnd->setView(prevView);
