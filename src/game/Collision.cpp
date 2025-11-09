@@ -2,7 +2,8 @@
 #include <algorithm>
 #include <cmath>
 
-namespace ark {
+namespace ark 
+{
     static float clampf(float v, float lo, float hi) { return std::max(lo, std::min(v, hi)); }
 
     bool circleIntersectsAabb(const Circle& cir, const AABB& box,

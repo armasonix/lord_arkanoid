@@ -292,7 +292,12 @@
 				34,
 				35,
 				36,
-				37
+				37,
+				38,
+				39,
+				40,
+				41,
+				42
 			]
 		}
 	],
@@ -506,6 +511,31 @@
 		{
 			"backtrace" : 1,
 			"path" : "include/audio/SoundService.h",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/app/IModule.h",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/game/GameState.h",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/game/GameObject.h",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/game/ICollidable.h",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/game/Collidable.h",
 			"sourceGroupIndex" : 8
 		}
 	],
