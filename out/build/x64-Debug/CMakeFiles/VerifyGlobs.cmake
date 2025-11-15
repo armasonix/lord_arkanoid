@@ -12,6 +12,7 @@ set(OLD_GLOB
   "D:/Workspace/xyz/arkanoid/src/game/Ball.cpp"
   "D:/Workspace/xyz/arkanoid/src/game/BlockGrid.cpp"
   "D:/Workspace/xyz/arkanoid/src/game/Collision.cpp"
+  "D:/Workspace/xyz/arkanoid/src/game/Game.cpp"
   "D:/Workspace/xyz/arkanoid/src/game/Paddle.cpp"
   "D:/Workspace/xyz/arkanoid/src/game/World.cpp"
   "D:/Workspace/xyz/arkanoid/src/input/InputSystem.cpp"

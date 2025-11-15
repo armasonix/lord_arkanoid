@@ -10,59 +10,73 @@
 
 namespace ark
 {
-
-void PlayState::onEnter() 
-{
-    m_world = std::make_unique<World>(*m_ctx.window); // RAII world ownership
-    if (m_ctx.music) m_ctx.music->playLevel(true);
-}
-
-void PlayState::handleEvent(const sf::Event& e) 
-{
-    if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Escape) 
+    void PlayState::onEnter()
     {
-        m_ctx.states->push<PauseState>();
-    }
-}
+        // create Game
+        m_game = std::make_unique<Game>(m_ctx);
+        if (m_ctx.music)
+            m_ctx.music->playLevel(true);
 
-void PlayState::update(float dt) 
-{
-    m_dtLast = dt;
-    m_world->update(dt, *m_ctx.input);
-
-    // lose
-    if (!m_goQueued && m_world->isBallLost()) 
-    {
-        if (m_ctx.music) m_ctx.music->stop();
-        if (m_ctx.sfx)   m_ctx.sfx->playEnsure(Sfx::Lose);
-        m_ctx.states->push<GameOverState>();
-        m_goQueued = true;
-        return;
+        m_goQueued = false;
+        m_winQueued = false;
     }
 
-    // win
-    if (!m_winQueued && m_world->victory()) 
+    void PlayState::handleEvent(const sf::Event& e)
     {
-        if (m_ctx.music) m_ctx.music->stop();
-        if (m_ctx.sfx)   m_ctx.sfx->playEnsure(Sfx::Win);
-        m_ctx.states->push<WinState>();
-        m_winQueued = true;
-        return;
+        if (m_game)
+            m_game->handleEvent(e);
+
+        if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Escape)
+        {
+            m_ctx.states->push<PauseState>();
+        }
     }
 
-    if (m_ctx.input->debugTogglePressed()) 
+    void PlayState::update(float dt)
     {
-        m_ctx.debug->setVisible(!m_ctx.debug->visible());
-    }
-}
+        m_dtLast = dt;
 
-void PlayState::render(sf::RenderTarget& rt) 
-{
-    m_world->render(rt);
-    if (m_ctx.debug->visible()) 
-    {
-        m_ctx.debug->draw(rt, m_ctx.debug->fps(), m_dtLast, m_world->ballSpeed());
+        if (m_game)
+            m_game->update(dt);
+
+        // lose
+        if (!m_goQueued && m_game && m_game->isBallLost())
+        {
+            if (m_ctx.music) m_ctx.music->stop();
+            if (m_ctx.sfx)   m_ctx.sfx->playEnsure(Sfx::Lose);
+
+            m_ctx.states->push<GameOverState>();
+            m_goQueued = true;
+            return;
+        }
+
+        // win
+        if (!m_winQueued && m_game && m_game->victory())
+        {
+            if (m_ctx.music) m_ctx.music->stop();
+            if (m_ctx.sfx)   m_ctx.sfx->playEnsure(Sfx::Win);
+
+            m_ctx.states->push<WinState>();
+            m_winQueued = true;
+            return;
+        }
+
+        if (m_ctx.input->debugTogglePressed())
+        {
+            m_ctx.debug->setVisible(!m_ctx.debug->visible());
+        }
     }
-}
+
+    void PlayState::render(sf::RenderTarget& rt)
+    {
+        if (m_game)
+            m_game->render(rt);
+
+        if (m_ctx.debug->visible())
+        {
+            const float speed = m_game ? m_game->ballSpeed() : 0.f;
+            m_ctx.debug->draw(rt, m_ctx.debug->fps(), m_dtLast, speed);
+        }
+    }
 
 } // namespace ark
