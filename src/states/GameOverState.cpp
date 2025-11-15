@@ -2,6 +2,7 @@
 #include "core/StateMachine.h"
 #include "core/Resources.h"
 #include "states/MenuState.h"
+#include "audio/MusicService.h"
 
 namespace ark
 {
@@ -14,6 +15,7 @@ void GameOverState::onEnter()
     m_text.setCharacterSize(28);
     m_text.setFillColor(sf::Color(255, 120, 120));
     m_text.setPosition(80.f, 140.f);
+    if (m_ctx.music) m_ctx.music->stop();
 }
 
 void GameOverState::handleEvent(const sf::Event& e) 

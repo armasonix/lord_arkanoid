@@ -49,6 +49,15 @@ cmake_ninja_workdir = D$:\Workspace\xyz\arkanoid\out\build\x64-Debug\
 
 build cmake_object_order_depends_target_arkanoid: phony || .
 
+build CMakeFiles\arkanoid.dir\src\audio\MusicService.cpp.obj: CXX_COMPILER__arkanoid_unscanned_Debug D$:\Workspace\xyz\arkanoid\src\audio\MusicService.cpp || cmake_object_order_depends_target_arkanoid
+  DEFINES = -DASSETS_DIR=\"D:/Workspace/xyz/arkanoid/resources/assets\" -DNOMINMAX -D_CRT_SECURE_NO_WARNINGS
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /W4 /permissive- /Zc:preprocessor /EHsc /external:W0 /external:anglebrackets
+  INCLUDES = -ID:\Workspace\xyz\arkanoid\include -external:ID:\Workspace\xyz\arkanoid\lib\SFML\include -external:W0
+  OBJECT_DIR = CMakeFiles\arkanoid.dir
+  OBJECT_FILE_DIR = CMakeFiles\arkanoid.dir\src\audio
+  TARGET_COMPILE_PDB = CMakeFiles\arkanoid.dir\
+  TARGET_PDB = arkanoid.pdb
+
 build CMakeFiles\arkanoid.dir\src\core\Application.cpp.obj: CXX_COMPILER__arkanoid_unscanned_Debug D$:\Workspace\xyz\arkanoid\src\core\Application.cpp || cmake_object_order_depends_target_arkanoid
   DEFINES = -DASSETS_DIR=\"D:/Workspace/xyz/arkanoid/resources/assets\" -DNOMINMAX -D_CRT_SECURE_NO_WARNINGS
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /W4 /permissive- /Zc:preprocessor /EHsc /external:W0 /external:anglebrackets
@@ -77,6 +86,15 @@ build CMakeFiles\arkanoid.dir\src\core\StateMachine.cpp.obj: CXX_COMPILER__arkan
   TARGET_PDB = arkanoid.pdb
 
 build CMakeFiles\arkanoid.dir\src\game\Ball.cpp.obj: CXX_COMPILER__arkanoid_unscanned_Debug D$:\Workspace\xyz\arkanoid\src\game\Ball.cpp || cmake_object_order_depends_target_arkanoid
+  DEFINES = -DASSETS_DIR=\"D:/Workspace/xyz/arkanoid/resources/assets\" -DNOMINMAX -D_CRT_SECURE_NO_WARNINGS
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /W4 /permissive- /Zc:preprocessor /EHsc /external:W0 /external:anglebrackets
+  INCLUDES = -ID:\Workspace\xyz\arkanoid\include -external:ID:\Workspace\xyz\arkanoid\lib\SFML\include -external:W0
+  OBJECT_DIR = CMakeFiles\arkanoid.dir
+  OBJECT_FILE_DIR = CMakeFiles\arkanoid.dir\src\game
+  TARGET_COMPILE_PDB = CMakeFiles\arkanoid.dir\
+  TARGET_PDB = arkanoid.pdb
+
+build CMakeFiles\arkanoid.dir\src\game\BlockGrid.cpp.obj: CXX_COMPILER__arkanoid_unscanned_Debug D$:\Workspace\xyz\arkanoid\src\game\BlockGrid.cpp || cmake_object_order_depends_target_arkanoid
   DEFINES = -DASSETS_DIR=\"D:/Workspace/xyz/arkanoid/resources/assets\" -DNOMINMAX -D_CRT_SECURE_NO_WARNINGS
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /W4 /permissive- /Zc:preprocessor /EHsc /external:W0 /external:anglebrackets
   INCLUDES = -ID:\Workspace\xyz\arkanoid\include -external:ID:\Workspace\xyz\arkanoid\lib\SFML\include -external:W0
@@ -175,6 +193,15 @@ build CMakeFiles\arkanoid.dir\src\states\PlayState.cpp.obj: CXX_COMPILER__arkano
   TARGET_COMPILE_PDB = CMakeFiles\arkanoid.dir\
   TARGET_PDB = arkanoid.pdb
 
+build CMakeFiles\arkanoid.dir\src\states\WinState.cpp.obj: CXX_COMPILER__arkanoid_unscanned_Debug D$:\Workspace\xyz\arkanoid\src\states\WinState.cpp || cmake_object_order_depends_target_arkanoid
+  DEFINES = -DASSETS_DIR=\"D:/Workspace/xyz/arkanoid/resources/assets\" -DNOMINMAX -D_CRT_SECURE_NO_WARNINGS
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /W4 /permissive- /Zc:preprocessor /EHsc /external:W0 /external:anglebrackets
+  INCLUDES = -ID:\Workspace\xyz\arkanoid\include -external:ID:\Workspace\xyz\arkanoid\lib\SFML\include -external:W0
+  OBJECT_DIR = CMakeFiles\arkanoid.dir
+  OBJECT_FILE_DIR = CMakeFiles\arkanoid.dir\src\states
+  TARGET_COMPILE_PDB = CMakeFiles\arkanoid.dir\
+  TARGET_PDB = arkanoid.pdb
+
 build CMakeFiles\arkanoid.dir\src\utils\DebugOverlay.cpp.obj: CXX_COMPILER__arkanoid_unscanned_Debug D$:\Workspace\xyz\arkanoid\src\utils\DebugOverlay.cpp || cmake_object_order_depends_target_arkanoid
   DEFINES = -DASSETS_DIR=\"D:/Workspace/xyz/arkanoid/resources/assets\" -DNOMINMAX -D_CRT_SECURE_NO_WARNINGS
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /W4 /permissive- /Zc:preprocessor /EHsc /external:W0 /external:anglebrackets
@@ -193,6 +220,15 @@ build CMakeFiles\arkanoid.dir\src\utils\Profiler.cpp.obj: CXX_COMPILER__arkanoid
   TARGET_COMPILE_PDB = CMakeFiles\arkanoid.dir\
   TARGET_PDB = arkanoid.pdb
 
+build CMakeFiles\arkanoid.dir\src\vfx\CameraShake.cpp.obj: CXX_COMPILER__arkanoid_unscanned_Debug D$:\Workspace\xyz\arkanoid\src\vfx\CameraShake.cpp || cmake_object_order_depends_target_arkanoid
+  DEFINES = -DASSETS_DIR=\"D:/Workspace/xyz/arkanoid/resources/assets\" -DNOMINMAX -D_CRT_SECURE_NO_WARNINGS
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /W4 /permissive- /Zc:preprocessor /EHsc /external:W0 /external:anglebrackets
+  INCLUDES = -ID:\Workspace\xyz\arkanoid\include -external:ID:\Workspace\xyz\arkanoid\lib\SFML\include -external:W0
+  OBJECT_DIR = CMakeFiles\arkanoid.dir
+  OBJECT_FILE_DIR = CMakeFiles\arkanoid.dir\src\vfx
+  TARGET_COMPILE_PDB = CMakeFiles\arkanoid.dir\
+  TARGET_PDB = arkanoid.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target arkanoid
@@ -201,7 +237,7 @@ build CMakeFiles\arkanoid.dir\src\utils\Profiler.cpp.obj: CXX_COMPILER__arkanoid
 #############################################
 # Link the executable arkanoid.exe
 
-build arkanoid.exe: CXX_EXECUTABLE_LINKER__arkanoid_Debug CMakeFiles\arkanoid.dir\src\core\Application.cpp.obj CMakeFiles\arkanoid.dir\src\core\Resources.cpp.obj CMakeFiles\arkanoid.dir\src\core\StateMachine.cpp.obj CMakeFiles\arkanoid.dir\src\game\Ball.cpp.obj CMakeFiles\arkanoid.dir\src\game\Collision.cpp.obj CMakeFiles\arkanoid.dir\src\game\Paddle.cpp.obj CMakeFiles\arkanoid.dir\src\game\World.cpp.obj CMakeFiles\arkanoid.dir\src\input\InputSystem.cpp.obj CMakeFiles\arkanoid.dir\src\main.cpp.obj CMakeFiles\arkanoid.dir\src\states\BootState.cpp.obj CMakeFiles\arkanoid.dir\src\states\GameOverState.cpp.obj CMakeFiles\arkanoid.dir\src\states\MenuState.cpp.obj CMakeFiles\arkanoid.dir\src\states\PauseState.cpp.obj CMakeFiles\arkanoid.dir\src\states\PlayState.cpp.obj CMakeFiles\arkanoid.dir\src\utils\DebugOverlay.cpp.obj CMakeFiles\arkanoid.dir\src\utils\Profiler.cpp.obj | D$:\Workspace\xyz\arkanoid\lib\SFML\lib\sfml-graphics-d.lib D$:\Workspace\xyz\arkanoid\lib\SFML\lib\sfml-audio-d.lib D$:\Workspace\xyz\arkanoid\lib\SFML\lib\sfml-window-d.lib D$:\Workspace\xyz\arkanoid\lib\SFML\lib\sfml-system-d.lib
+build arkanoid.exe: CXX_EXECUTABLE_LINKER__arkanoid_Debug CMakeFiles\arkanoid.dir\src\audio\MusicService.cpp.obj CMakeFiles\arkanoid.dir\src\core\Application.cpp.obj CMakeFiles\arkanoid.dir\src\core\Resources.cpp.obj CMakeFiles\arkanoid.dir\src\core\StateMachine.cpp.obj CMakeFiles\arkanoid.dir\src\game\Ball.cpp.obj CMakeFiles\arkanoid.dir\src\game\BlockGrid.cpp.obj CMakeFiles\arkanoid.dir\src\game\Collision.cpp.obj CMakeFiles\arkanoid.dir\src\game\Paddle.cpp.obj CMakeFiles\arkanoid.dir\src\game\World.cpp.obj CMakeFiles\arkanoid.dir\src\input\InputSystem.cpp.obj CMakeFiles\arkanoid.dir\src\main.cpp.obj CMakeFiles\arkanoid.dir\src\states\BootState.cpp.obj CMakeFiles\arkanoid.dir\src\states\GameOverState.cpp.obj CMakeFiles\arkanoid.dir\src\states\MenuState.cpp.obj CMakeFiles\arkanoid.dir\src\states\PauseState.cpp.obj CMakeFiles\arkanoid.dir\src\states\PlayState.cpp.obj CMakeFiles\arkanoid.dir\src\states\WinState.cpp.obj CMakeFiles\arkanoid.dir\src\utils\DebugOverlay.cpp.obj CMakeFiles\arkanoid.dir\src\utils\Profiler.cpp.obj CMakeFiles\arkanoid.dir\src\vfx\CameraShake.cpp.obj | D$:\Workspace\xyz\arkanoid\lib\SFML\lib\sfml-graphics-d.lib D$:\Workspace\xyz\arkanoid\lib\SFML\lib\sfml-audio-d.lib D$:\Workspace\xyz\arkanoid\lib\SFML\lib\sfml-window-d.lib D$:\Workspace\xyz\arkanoid\lib\SFML\lib\sfml-system-d.lib
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = D:\Workspace\xyz\arkanoid\lib\SFML\lib\sfml-graphics-d.lib  D:\Workspace\xyz\arkanoid\lib\SFML\lib\sfml-audio-d.lib  D:\Workspace\xyz\arkanoid\lib\SFML\lib\sfml-window-d.lib  D:\Workspace\xyz\arkanoid\lib\SFML\lib\sfml-system-d.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib

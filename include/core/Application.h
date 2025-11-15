@@ -5,6 +5,8 @@
 #include "core/Resources.h"
 #include "utils/FPSCounter.h"
 #include "utils/DebugOverlay.h"
+#include "audio/MusicService.h"
+#include "audio/SoundService.h"
 
 namespace ark 
 {
@@ -22,6 +24,8 @@ private:
     InputSystem      m_input;
     FPSCounter       m_fps;
     DebugOverlay     m_debug;
+    MusicService     m_music;
+    SoundService     m_sfx;
     StateMachine     m_states;
 
     float m_lastFps{ 0.f };

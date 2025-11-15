@@ -8,7 +8,9 @@ namespace ark
 Application::Application(unsigned w, unsigned h, const char* title)
     : m_window(sf::VideoMode(w, h), title, sf::Style::Close)
     , m_debug(&m_resources.font("mono", std::string(ASSETS_DIR) + "/fonts/Roboto-Regular.ttf"))
-    , m_states(Context{ &m_window, &m_states, &m_resources, &m_input, &m_debug })
+    , m_music(std::string(ASSETS_DIR))
+    , m_sfx(std::string(ASSETS_DIR))
+    , m_states(Context{ &m_window, &m_states, &m_resources, &m_input, &m_debug, &m_music, &m_sfx })
 {
     m_window.setFramerateLimit(0);
     m_window.setVerticalSyncEnabled(true);
@@ -43,6 +45,11 @@ void Application::run()
             {
                 if (e.type == sf::Event::Closed) m_window.close();
                 m_input.handleEvent(e, m_window);
+
+                if(e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::F3) 
+                {
+                    m_debug.setVisible(!m_debug.visible());
+                }
                 m_states.handleEvent(e);
             }
         }

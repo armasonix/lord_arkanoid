@@ -1,6 +1,7 @@
 #include "states/PauseState.h"
 #include "core/StateMachine.h"
 #include "core/Resources.h"
+#include "audio/MusicService.h"
 
 namespace ark
 {
@@ -13,6 +14,12 @@ void PauseState::onEnter()
     m_text.setCharacterSize(28);
     m_text.setFillColor(sf::Color::Yellow);
     m_text.setPosition(80.f, 120.f);
+    if (m_ctx.music) m_ctx.music->pause();
+}
+
+void PauseState::onExit() 
+{
+    if (m_ctx.music) m_ctx.music->resume();
 }
 
 void PauseState::handleEvent(const sf::Event& e) 

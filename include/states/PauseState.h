@@ -10,6 +10,7 @@ class PauseState : public State
 public:
     using State::State;
     void onEnter() override;
+    void onExit() override;
     void handleEvent(const sf::Event& e) override;
     void update(float) override;
     void render(sf::RenderTarget& rt) override;
