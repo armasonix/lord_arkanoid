@@ -20,7 +20,8 @@ if (NOT SOURCES)
   message(FATAL_ERROR "No .cpp files found in ${PROJ_ROOT}/src")
 endif()
 
-add_executable(arkanoid ${SOURCES} "include/game/Collision.h" "src/game/Collision.cpp" "include/game/Paddle.h" "src/game/Paddle.cpp" "include/game/Ball.h" "src/game/Ball.cpp" "include/game/World.h" "src/game/World.cpp" "include/states/BootState.h" "src/states/BootState.cpp" "include/states/MenuState.h" "src/states/MenuState.cpp" "include/states/PauseState.h" "src/states/PauseState.cpp" "include/states/GameOverState.h" "src/states/GameOverState.cpp" "include/states/PlayState.h" "src/states/PlayState.cpp" "include/core/Application.h" "src/core/Application.cpp" "src/main.cpp" "src/utils/Profiler.cpp" "include/vfx/CameraShake.h" "src/vfx/CameraShake.cpp" "include/gfx/ColorEffect.h" "include/game/Block.h" "include/game/BlockGrid.h" "src/game/BlockGrid.cpp" "include/states/WinState.h" "src/states/WinState.cpp" "include/gfx/Starfield.h" "include/audio/MusicService.h" "src/audio/MusicService.cpp" "include/audio/SoundService.h" "include/app/IModule.h" "include/game/GameState.h" "include/game/GameObject.h" "include/game/ICollidable.h" "include/game/Collidable.h" "include/game/Game.h" "src/game/Game.cpp")
+# exe
+add_executable(arkanoid ${SOURCES})
 
 # include
 target_include_directories(arkanoid PRIVATE
@@ -30,7 +31,7 @@ target_include_directories(arkanoid PRIVATE
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 source_group(TREE ${PROJ_ROOT} FILES ${SOURCES})
 
-# warn
+# warnings
 if (MSVC)
   target_compile_options(arkanoid PRIVATE /W4 /permissive- /Zc:preprocessor /EHsc /external:W0 /external:anglebrackets)
   if (LORD_ARKANOID_WERROR)
@@ -53,12 +54,13 @@ target_compile_definitions(arkanoid PRIVATE
 # SFML linking
 target_link_libraries(arkanoid PRIVATE sfml-system sfml-window sfml-graphics sfml-audio)
 
+# copying resources
 add_custom_command(TARGET arkanoid POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
             "${CMAKE_CURRENT_SOURCE_DIR}/resources/assets"
             "$<TARGET_FILE_DIR:arkanoid>/assets")
 
-# SFML DLL 
+# SFML DLL
 if (WIN32 AND NOT SFML_USE_STATIC_LIBS AND DEFINED SFML_DIR)
   get_filename_component(_sfml_prefix "${SFML_DIR}/../../.." ABSOLUTE)
   add_custom_command(TARGET arkanoid POST_BUILD

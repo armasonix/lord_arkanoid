@@ -6,28 +6,42 @@
 
 namespace ark
 {
-
-void GameOverState::onEnter() 
-{
-    auto& font = m_ctx.resources->font("mono");
-    m_text.setFont(font);
-    m_text.setString("GAME OVER\nPress Enter to menu");
-    m_text.setCharacterSize(28);
-    m_text.setFillColor(sf::Color(255, 120, 120));
-    m_text.setPosition(80.f, 140.f);
-    if (m_ctx.music) m_ctx.music->stop();
-}
-
-void GameOverState::handleEvent(const sf::Event& e) 
-{
-    if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Enter) 
+    void GameOverState::onEnter()
     {
-        m_ctx.states->clear();
-        m_ctx.states->push<MenuState>();
-    }
-}
+        auto& font = m_ctx.resources->font("mono");
+        m_text.setFont(font);
+        m_text.setString("GAME OVER\nPress Enter to menu");
+        m_text.setCharacterSize(32);
+        m_text.setFillColor(sf::Color(255, 120, 120));
 
-void GameOverState::update(float) {}
-void GameOverState::render(sf::RenderTarget& rt) { rt.draw(m_text); }
+        if (m_ctx.window)
+        {
+            auto sz = m_ctx.window->getSize();
+            float cx = static_cast<float>(sz.x) * 0.5f;
+            float cy = static_cast<float>(sz.y) * 0.5f;
+            auto b = m_text.getLocalBounds();
+            m_text.setOrigin(b.left + b.width * 0.5f, b.top + b.height * 0.5f);
+            m_text.setPosition(cx, cy);
+        }
+
+        if (m_ctx.music)
+            m_ctx.music->stop();
+    }
+
+    void GameOverState::handleEvent(const sf::Event& e)
+    {
+        if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Enter)
+        {
+            m_ctx.states->clear();
+            m_ctx.states->push<MenuState>();
+        }
+    }
+
+    void GameOverState::update(float) {}
+
+    void GameOverState::render(sf::RenderTarget& rt)
+    {
+        rt.draw(m_text);
+    }
 
 } // namespace ark

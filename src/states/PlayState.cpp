@@ -1,5 +1,4 @@
 #include "states/PlayState.h"
-#include "states/PauseState.h"
 #include "states/WinState.h"
 #include "states/GameOverState.h"
 #include "core/StateMachine.h"
@@ -10,6 +9,7 @@
 
 namespace ark
 {
+
     void PlayState::onEnter()
     {
         // create Game
@@ -25,11 +25,6 @@ namespace ark
     {
         if (m_game)
             m_game->handleEvent(e);
-
-        if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Escape)
-        {
-            m_ctx.states->push<PauseState>();
-        }
     }
 
     void PlayState::update(float dt)
@@ -61,7 +56,8 @@ namespace ark
             return;
         }
 
-        if (m_ctx.input->debugTogglePressed())
+        // debug overlay
+        if (m_ctx.input && m_ctx.input->debugTogglePressed())
         {
             m_ctx.debug->setVisible(!m_ctx.debug->visible());
         }

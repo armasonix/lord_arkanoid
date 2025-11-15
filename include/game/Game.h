@@ -14,6 +14,7 @@ namespace ark
     {
     public:
         explicit Game(Context ctx);
+
         void handleEvent(const sf::Event& e);
         void update(float dt);
         void render(sf::RenderTarget& rt);
@@ -21,6 +22,8 @@ namespace ark
         bool victory() const;
         float ballSpeed() const;
         void resetLevel();
+        void togglePause();
+        bool isPaused() const;
 
         World& world();
         const World& world() const;

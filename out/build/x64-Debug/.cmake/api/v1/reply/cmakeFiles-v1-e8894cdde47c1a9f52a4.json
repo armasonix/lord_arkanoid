@@ -20,7 +20,6 @@
 				"D:/Workspace/xyz/arkanoid/src/states/BootState.cpp",
 				"D:/Workspace/xyz/arkanoid/src/states/GameOverState.cpp",
 				"D:/Workspace/xyz/arkanoid/src/states/MenuState.cpp",
-				"D:/Workspace/xyz/arkanoid/src/states/PauseState.cpp",
 				"D:/Workspace/xyz/arkanoid/src/states/PlayState.cpp",
 				"D:/Workspace/xyz/arkanoid/src/states/WinState.cpp",
 				"D:/Workspace/xyz/arkanoid/src/utils/DebugOverlay.cpp",
