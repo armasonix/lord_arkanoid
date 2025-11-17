@@ -21,6 +21,7 @@ set(OLD_GLOB
   "D:/Workspace/xyz/arkanoid/src/input/InputSystem.cpp"
   "D:/Workspace/xyz/arkanoid/src/main.cpp"
   "D:/Workspace/xyz/arkanoid/src/states/BootState.cpp"
+  "D:/Workspace/xyz/arkanoid/src/states/EnterNameState.cpp"
   "D:/Workspace/xyz/arkanoid/src/states/GameOverState.cpp"
   "D:/Workspace/xyz/arkanoid/src/states/HighScoresState.cpp"
   "D:/Workspace/xyz/arkanoid/src/states/MenuState.cpp"

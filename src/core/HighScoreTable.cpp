@@ -8,18 +8,20 @@ namespace ark
     void HighScoreTable::load(const std::string& filename)
     {
         m_scores.clear();
-
         std::ifstream in(filename);
         if (!in.is_open())
             return;
 
-        int value = 0;
-        while (in >> value)
+        std::string name;
+        int score = 0;
+
+        while (in >> name >> score)
         {
-            m_scores.push_back(value);
+            m_scores.push_back({ name, score });
         }
 
-        std::sort(m_scores.begin(), m_scores.end(), std::greater<int>());
+        std::sort(m_scores.begin(), m_scores.end(),
+            [](const auto& a, const auto& b) { return a.score > b.score; });
 
         if (m_scores.size() > MaxEntries)
             m_scores.resize(MaxEntries);
@@ -31,16 +33,16 @@ namespace ark
         if (!out.is_open())
             return;
 
-        for (int s : m_scores)
-        {
-            out << s << "\n";
-        }
+        for (auto& e : m_scores)
+            out << e.name << " " << e.score << "\n";
     }
 
-    void HighScoreTable::submitScore(int score)
+    void HighScoreTable::submitScore(const std::string& name, int score)
     {
-        m_scores.push_back(score);
-        std::sort(m_scores.begin(), m_scores.end(), std::greater<int>());
+        m_scores.push_back({ name, score });
+
+        std::sort(m_scores.begin(), m_scores.end(),
+            [](const auto& a, const auto& b) { return a.score > b.score; });
 
         if (m_scores.size() > MaxEntries)
             m_scores.resize(MaxEntries);

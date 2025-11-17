@@ -1,5 +1,6 @@
 #include "states/PlayState.h"
 #include "states/WinState.h"
+#include "states/EnterNameState.h"
 #include "states/GameOverState.h"
 #include "core/StateMachine.h"
 #include "core/Resources.h"
@@ -50,7 +51,7 @@ namespace ark
             if (m_ctx.sfx)   m_ctx.sfx->playEnsure(Sfx::Lose);
 
             int points = m_game->score().score();
-            m_ctx.states->push<GameOverState>(points);
+            m_ctx.states->push<EnterNameState>(points, false);
             m_goQueued = true;
             return;
         }
@@ -62,7 +63,7 @@ namespace ark
             if (m_ctx.sfx)   m_ctx.sfx->playEnsure(Sfx::Win);
 
             int points = m_game->score().score();
-            m_ctx.states->push<WinState>(points);
+            m_ctx.states->push<EnterNameState>(points, true);
             m_winQueued = true;
             return;
         }

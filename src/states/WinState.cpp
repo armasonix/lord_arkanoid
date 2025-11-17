@@ -13,12 +13,6 @@ namespace ark
     {
         auto& font = m_ctx.resources->font("mono");
 
-        // update highscores
-        HighScoreTable table;
-        table.load("highscores.txt");
-        table.submitScore(m_finalScore);
-        table.save("highscores.txt");
-
         m_title.setFont(font);
         m_title.setCharacterSize(48);
         m_title.setFillColor(sf::Color(120, 255, 120));

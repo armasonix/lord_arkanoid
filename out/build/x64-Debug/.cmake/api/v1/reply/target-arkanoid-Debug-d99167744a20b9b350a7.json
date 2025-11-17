@@ -154,7 +154,8 @@
 				20,
 				21,
 				22,
-				23
+				23,
+				24
 			]
 		}
 	],
@@ -261,33 +262,36 @@
 				17,
 				18,
 				19,
-				20
+				20,
+				21
 			]
 		},
 		{
 			"name" : "src\\utils",
 			"sourceIndexes" : 
 			[
-				21,
-				22
+				22,
+				23
 			]
 		},
 		{
 			"name" : "src\\vfx",
 			"sourceIndexes" : 
 			[
-				23
+				24
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				24,
 				25,
 				26,
 				27,
-				28
+				28,
+				29,
+				30,
+				31
 			]
 		}
 	],
@@ -392,6 +396,12 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
+			"path" : "src/states/EnterNameState.cpp",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
 			"path" : "src/states/GameOverState.cpp",
 			"sourceGroupIndex" : 5
 		},
@@ -460,6 +470,16 @@
 		{
 			"backtrace" : 1,
 			"path" : "include/states/HighScoresState.h",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/core/HighScoreEntry.h",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/states/EnterNameState.h",
 			"sourceGroupIndex" : 8
 		}
 	],

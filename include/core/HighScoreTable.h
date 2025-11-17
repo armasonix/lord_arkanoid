@@ -1,4 +1,5 @@
 #pragma once
+#include "core/HighScoreEntry.h"
 #include <vector>
 #include <string>
 
@@ -10,12 +11,12 @@ namespace ark
     public:
         void load(const std::string& filename);
         void save(const std::string& filename) const;
-        void submitScore(int score);
-        const std::vector<int>& scores() const { return m_scores; }
+        void submitScore(const std::string& name, int score);
+        const std::vector<HighScoreEntry>& entries() const { return m_scores; }
 
     private:
         static constexpr std::size_t MaxEntries = 10;
-        std::vector<int> m_scores;
+        std::vector<HighScoreEntry> m_scores;
     };
 
 } // namespace ark

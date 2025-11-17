@@ -20,12 +20,14 @@ namespace ark
 
         // top 10
         std::string text;
-        const auto& scores = m_table.scores();
-        for (std::size_t i = 0; i < scores.size(); ++i)
+        const auto& list = m_table.entries();
+        for (size_t i = 0; i < list.size(); i++)
         {
-            text += std::to_string(i + 1) + ". " + std::to_string(scores[i]) + "\n";
+            text += std::to_string(i + 1) + ". " +
+                list[i].name + " - " +
+                std::to_string(list[i].score) + "\n";
         }
-        if (scores.empty())
+        if (list.empty())
             text = "No scores yet.";
 
         m_scores.setFont(font);
