@@ -1,6 +1,9 @@
 #pragma once
 #include "core/State.h"
 #include <SFML/Graphics.hpp>
+#include <vector>
+#include <string>
+
 
 namespace ark
 {
@@ -14,8 +17,11 @@ public:
     void update(float) override;
     void render(sf::RenderTarget& rt) override;
 
-private:
+protected:
     sf::Text m_title, m_hint;
+    std::vector<std::string> m_items;
+    std::vector<sf::Text>    m_textItems;
+    int m_selected = 0;
 };
 
 } // namespace ark

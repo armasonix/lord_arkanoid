@@ -1,6 +1,7 @@
 #include "states/WinState.h"
 #include "core/Resources.h"
 #include "core/StateMachine.h"
+#include "core/HighScoreTable.h"
 #include "states/PlayState.h"
 #include "states/MenuState.h"
 #include "audio/SoundService.h"
@@ -11,14 +12,23 @@ namespace ark
     void WinState::onEnter()
     {
         auto& font = m_ctx.resources->font("mono");
+
+        // update highscores
+        HighScoreTable table;
+        table.load("highscores.txt");
+        table.submitScore(m_finalScore);
+        table.save("highscores.txt");
+
         m_title.setFont(font);
-        m_title.setString("YOU WIN!\nScore: " + std::to_string(m_finalScore));
         m_title.setCharacterSize(48);
         m_title.setFillColor(sf::Color(120, 255, 120));
+        m_title.setString("YOU WIN!\nScore: " + std::to_string(m_finalScore));
+
+        // hint
         m_prompt.setFont(font);
-        m_prompt.setString("Wanna Play again?  [Y]es / [N]o");
         m_prompt.setCharacterSize(24);
         m_prompt.setFillColor(sf::Color(220, 220, 240));
+        m_prompt.setString("Play again?  [Y]es / [N]o");
 
         if (m_ctx.window)
         {
@@ -37,7 +47,7 @@ namespace ark
             {
                 auto b = m_prompt.getLocalBounds();
                 m_prompt.setOrigin(b.left + b.width * 0.5f, b.top + b.height * 0.5f);
-                m_prompt.setPosition(cx, cy + 20.f);
+                m_prompt.setPosition(cx, cy + 40.f);
             }
         }
 

@@ -2,6 +2,7 @@
 #include "core/StateMachine.h"
 #include "core/Resources.h"
 #include "states/PlayState.h"
+#include "states/HighScoresState.h"
 #include "audio/MusicService.h"
 
 namespace ark
@@ -15,10 +16,18 @@ namespace ark
         m_title.setCharacterSize(48);
         m_title.setFillColor(sf::Color::White);
 
-        m_hint.setFont(font);
-        m_hint.setString("Press Enter to Play");
-        m_hint.setCharacterSize(24);
-        m_hint.setFillColor(sf::Color(200, 200, 220));
+        m_items = {"PLAY", "HIGHSCORES", "EXIT"};
+
+        m_textItems.clear();
+        for (auto& s : m_items)
+        {
+            sf::Text t;
+            t.setFont(font);
+            t.setString(s);
+            t.setCharacterSize(32);
+            t.setFillColor(sf::Color(200, 200, 220));
+            m_textItems.push_back(t);
+        }
 
         if (m_ctx.window)
         {
@@ -28,15 +37,21 @@ namespace ark
             {
                 auto b = m_title.getLocalBounds();
                 m_title.setOrigin(b.left + b.width * 0.5f, b.top + b.height * 0.5f);
-                m_title.setPosition(cx, cy - 40.f);
+                m_title.setPosition(cx, cy - 180.f);
             }
 
+            float startY = cy - 40.f;
+            float step = 50.f;
+
+            for (std::size_t i = 0; i < m_textItems.size(); ++i)
             {
-                auto b = m_hint.getLocalBounds();
-                m_hint.setOrigin(b.left + b.width * 0.5f, b.top + b.height * 0.5f);
-                m_hint.setPosition(cx, cy + 20.f);
+                auto b = m_textItems[i].getLocalBounds();
+                m_textItems[i].setOrigin(b.left + b.width * 0.5f, b.top + b.height * 0.5f);
+                m_textItems[i].setPosition(cx, startY + step * i);
             }
         }
+
+        m_selected = 0;
 
         if (m_ctx.music)
             m_ctx.music->playTheme(true);
@@ -44,9 +59,38 @@ namespace ark
 
     void MenuState::handleEvent(const sf::Event& e)
     {
-        if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Enter)
+        if (e.type != sf::Event::KeyPressed)
+            return;
+
+        if (e.key.code == sf::Keyboard::Up)
         {
-            m_ctx.states->push<PlayState>();
+            m_selected--;
+            if (m_selected < 0)
+                m_selected = static_cast<int>(m_items.size()) - 1;
+        }
+        else if (e.key.code == sf::Keyboard::Down)
+        {
+            m_selected++;
+            if (m_selected >= static_cast<int>(m_items.size()))
+                m_selected = 0;
+        }
+        else if (e.key.code == sf::Keyboard::Enter)
+        {
+            const std::string& choice = m_items[m_selected];
+
+            if (choice == "PLAY")
+            {
+                m_ctx.states->push<PlayState>();
+            }
+            else if (choice == "HIGHSCORES")
+            {
+                m_ctx.states->push<HighScoresState>();
+            }
+            else if (choice == "EXIT")
+            {
+                if (m_ctx.window)
+                    m_ctx.window->close();
+            }
         }
     }
 
@@ -55,7 +99,17 @@ namespace ark
     void MenuState::render(sf::RenderTarget& rt)
     {
         rt.draw(m_title);
-        rt.draw(m_hint);
+
+        // hover
+        for (std::size_t i = 0; i < m_textItems.size(); ++i)
+        {
+            if ((int)i == m_selected)
+                m_textItems[i].setFillColor(sf::Color(255, 255, 180));
+            else
+                m_textItems[i].setFillColor(sf::Color(200, 200, 220));
+
+            rt.draw(m_textItems[i]);
+        }
     }
 
 } // namespace ark

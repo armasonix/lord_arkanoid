@@ -15,12 +15,12 @@ public:
     using State::State;
     void onEnter() override;
     void handleEvent(const sf::Event& e) override;
-    void update(float) override;
+    void update(float) override {}
     void render(sf::RenderTarget& rt) override;
 
 private:
     int m_finalScore = 0;
-    sf::Text m_text;
+    sf::Text m_title;
 };
 
 } // namespace ark
