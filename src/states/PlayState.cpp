@@ -2,6 +2,7 @@
 #include "states/WinState.h"
 #include "states/GameOverState.h"
 #include "core/StateMachine.h"
+#include "core/Resources.h"
 #include "utils/DebugOverlay.h"
 #include "input/InputSystem.h"
 #include "audio/SoundService.h"
@@ -14,11 +15,19 @@ namespace ark
     {
         // create Game
         m_game = std::make_unique<Game>(m_ctx);
+
         if (m_ctx.music)
             m_ctx.music->playLevel(true);
 
         m_goQueued = false;
         m_winQueued = false;
+
+        // ingame score
+        auto& font = m_ctx.resources->font("mono");
+        m_scoreText.setFont(font);
+        m_scoreText.setCharacterSize(20);
+        m_scoreText.setFillColor(sf::Color(240, 240, 240));
+        m_scoreText.setString("Score: 0");
     }
 
     void PlayState::handleEvent(const sf::Event& e)
@@ -40,7 +49,8 @@ namespace ark
             if (m_ctx.music) m_ctx.music->stop();
             if (m_ctx.sfx)   m_ctx.sfx->playEnsure(Sfx::Lose);
 
-            m_ctx.states->push<GameOverState>();
+            int points = m_game->score().score();
+            m_ctx.states->push<GameOverState>(points);
             m_goQueued = true;
             return;
         }
@@ -51,7 +61,8 @@ namespace ark
             if (m_ctx.music) m_ctx.music->stop();
             if (m_ctx.sfx)   m_ctx.sfx->playEnsure(Sfx::Win);
 
-            m_ctx.states->push<WinState>();
+            int points = m_game->score().score();
+            m_ctx.states->push<WinState>(points);
             m_winQueued = true;
             return;
         }
@@ -67,6 +78,24 @@ namespace ark
     {
         if (m_game)
             m_game->render(rt);
+
+        // score update
+        if (m_game)
+        {
+            int points = m_game->score().score();
+            m_scoreText.setString("Score: " + std::to_string(points));
+
+            if (m_ctx.window)
+            {
+                auto sz = m_ctx.window->getSize();
+                auto bounds = m_scoreText.getLocalBounds();
+
+                m_scoreText.setOrigin(bounds.left + bounds.width, bounds.top);
+                m_scoreText.setPosition(static_cast<float>(sz.x) - 10.f, 10.f);
+            }
+
+            rt.draw(m_scoreText);
+        }
 
         if (m_ctx.debug->visible())
         {

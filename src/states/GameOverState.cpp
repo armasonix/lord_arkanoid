@@ -10,7 +10,7 @@ namespace ark
     {
         auto& font = m_ctx.resources->font("mono");
         m_text.setFont(font);
-        m_text.setString("GAME OVER\nPress Enter to menu");
+        m_text.setString("GAME OVER\nScore: " + std::to_string(m_finalScore) + "\nPress Enter to menu");
         m_text.setCharacterSize(32);
         m_text.setFillColor(sf::Color(255, 120, 120));
 

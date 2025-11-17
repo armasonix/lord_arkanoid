@@ -7,7 +7,9 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/Workspace/xyz/arkanoid/src
 set(OLD_GLOB
   "D:/Workspace/xyz/arkanoid/src/audio/MusicService.cpp"
   "D:/Workspace/xyz/arkanoid/src/core/Application.cpp"
+  "D:/Workspace/xyz/arkanoid/src/core/GameEventBus.cpp"
   "D:/Workspace/xyz/arkanoid/src/core/Resources.cpp"
+  "D:/Workspace/xyz/arkanoid/src/core/ScoreSystem.cpp"
   "D:/Workspace/xyz/arkanoid/src/core/StateMachine.cpp"
   "D:/Workspace/xyz/arkanoid/src/game/Ball.cpp"
   "D:/Workspace/xyz/arkanoid/src/game/BlockGrid.cpp"

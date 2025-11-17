@@ -150,7 +150,9 @@
 				16,
 				17,
 				18,
-				19
+				19,
+				20,
+				21
 			]
 		}
 	],
@@ -216,59 +218,70 @@
 			[
 				1,
 				2,
-				3
+				3,
+				4,
+				5
 			]
 		},
 		{
 			"name" : "src\\game",
 			"sourceIndexes" : 
 			[
-				4,
-				5,
 				6,
 				7,
 				8,
-				9
+				9,
+				10,
+				11
 			]
 		},
 		{
 			"name" : "src\\input",
 			"sourceIndexes" : 
 			[
-				10
+				12
 			]
 		},
 		{
 			"name" : "src",
 			"sourceIndexes" : 
 			[
-				11
+				13
 			]
 		},
 		{
 			"name" : "src\\states",
 			"sourceIndexes" : 
 			[
-				12,
-				13,
 				14,
 				15,
-				16
+				16,
+				17,
+				18
 			]
 		},
 		{
 			"name" : "src\\utils",
 			"sourceIndexes" : 
 			[
-				17,
-				18
+				19,
+				20
 			]
 		},
 		{
 			"name" : "src\\vfx",
 			"sourceIndexes" : 
 			[
-				19
+				21
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				22,
+				23,
+				24
 			]
 		}
 	],
@@ -289,7 +302,19 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
+			"path" : "src/core/GameEventBus.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
 			"path" : "src/core/Resources.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/core/ScoreSystem.cpp",
 			"sourceGroupIndex" : 1
 		},
 		{
@@ -393,6 +418,21 @@
 			"compileGroupIndex" : 0,
 			"path" : "src/vfx/CameraShake.cpp",
 			"sourceGroupIndex" : 7
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/core/GameEvents.h",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/core/GameEventBus.h",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/core/ScoreSystem.h",
+			"sourceGroupIndex" : 8
 		}
 	],
 	"type" : "EXECUTABLE"

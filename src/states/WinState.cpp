@@ -12,7 +12,7 @@ namespace ark
     {
         auto& font = m_ctx.resources->font("mono");
         m_title.setFont(font);
-        m_title.setString("YOU WIN!");
+        m_title.setString("YOU WIN!\nScore: " + std::to_string(m_finalScore));
         m_title.setCharacterSize(48);
         m_title.setFillColor(sf::Color(120, 255, 120));
         m_prompt.setFont(font);

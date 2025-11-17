@@ -19,6 +19,8 @@ private:
     float m_dtLast{ 0.f };
     bool m_goQueued{ false };
     bool m_winQueued{ false };
+
+    sf::Text m_scoreText;
 };
 
 } // namespace ark

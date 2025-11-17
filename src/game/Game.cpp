@@ -120,10 +120,12 @@ namespace ark
     {
         if (m_ctx.window)
         {
-            m_world = std::make_unique<World>(*m_ctx.window);
+            m_world = std::make_unique<World>(*m_ctx.window, m_eventBus);
         }
 
         changeState(std::make_unique<PlayingGameState>(*this));
+        m_eventBus.addListener(&m_scoreSystem);
+        m_scoreSystem.reset();
     }
 
     void Game::changeState(std::unique_ptr<GameState> state)
@@ -175,7 +177,7 @@ namespace ark
         if (!m_ctx.window)
             return;
 
-        m_world = std::make_unique<World>(*m_ctx.window);
+        m_world = std::make_unique<World>(*m_ctx.window, m_eventBus);
         changeState(std::make_unique<PlayingGameState>(*this));
     }
 

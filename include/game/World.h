@@ -5,6 +5,7 @@
 #include "BlockGrid.h"
 #include "gfx/Starfield.h"
 #include "vfx/CameraShake.h"
+#include "core/GameEventBus.h"
 
 namespace ark
 {
@@ -12,7 +13,7 @@ namespace ark
 class World 
 {
 public:
-    explicit World(sf::RenderWindow& window);
+    explicit World(sf::RenderWindow& window, GameEventBus& events);
 
     void update(float dt, class InputSystem& input);
     void render(sf::RenderTarget& rt);
@@ -22,12 +23,15 @@ public:
     void resetBall();
 
     bool victory() const { return m_blocks.allDestroyed(); }
+
 private:
     void handleBallBlocksCollision();
 
     gfx::Starfield m_starfield;
 
     sf::RenderWindow& m_window;
+    GameEventBus& m_events;
+
     Paddle m_paddle;
     Ball   m_ball;
 

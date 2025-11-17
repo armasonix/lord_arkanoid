@@ -4,8 +4,9 @@
 namespace ark
 {
 
-    World::World(sf::RenderWindow& window)
+    World::World(sf::RenderWindow& window, GameEventBus& events)
         : m_window(window)
+        , m_events(events)
         , m_paddle({ 160.f, 20.f }, { window.getSize().x * 0.5f, window.getSize().y - 50.f })
         , m_ball(10.f, { window.getSize().x * 0.5f, window.getSize().y * 0.6f }, { 200.f, -300.f })
         , m_baseView(window.getDefaultView())
@@ -98,7 +99,6 @@ namespace ark
 
     void World::handleBallBlocksCollision()
     {
-        // colliders
         CollisionManifold man{};
 
         for (auto& b : m_blocks.blocks())
@@ -106,34 +106,49 @@ namespace ark
             if (!b->alive())
                 continue;
 
-            // collide ball, block
             if (!m_ball.collider().test(b->collider(), man))
                 continue;
 
             auto pos = m_ball.position();
             pos += man.normal * man.penetration;
 
-            // reflect speed from normal
+            // speed reflect
             auto vel = m_ball.velocity();
             float dot = vel.x * man.normal.x + vel.y * man.normal.y;
             vel = vel - 2.f * dot * man.normal;
-
             m_ball.reset(pos, vel);
 
-            // damage to block
+            // damage
             if (b->alive())
                 b->onHit();
 
             bool destroyedNow = !b->alive();
 
-            // shake when destroy
+            // destroy event
             if (destroyedNow)
             {
-                m_shake.trigger(/*mag*/4.0f, /*dur*/0.10f);
+                GameEvent ev;
+                ev.type = GameEventType::BlockDestroyed;
+
+                switch (b->type())
+                {
+                case BlockType::Low: ev.blockKind = BlockKind::Normal; break;
+                case BlockType::Med: ev.blockKind = BlockKind::Hard; break;
+                case BlockType::Hev: ev.blockKind = BlockKind::Bonus; break;
+                default: ev.blockKind = BlockKind::Unknown;
+                }
+
+                m_events.dispatch(ev);
+            }
+
+            // shake
+            if (destroyedNow)
+            {
+                m_shake.trigger(4.0f, 0.10f);
             }
             else
             {
-                m_shake.trigger(/*mag*/1.8f, /*dur*/0.06f);
+                m_shake.trigger(1.8f, 0.06f);
             }
 
             break;

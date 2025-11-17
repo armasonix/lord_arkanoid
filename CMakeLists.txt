@@ -21,7 +21,7 @@ if (NOT SOURCES)
 endif()
 
 # exe
-add_executable(arkanoid ${SOURCES})
+add_executable(arkanoid ${SOURCES} "include/core/GameEvents.h" "include/core/GameEventBus.h" "src/core/GameEventBus.cpp" "include/core/ScoreSystem.h" "src/core/ScoreSystem.cpp")
 
 # include
 target_include_directories(arkanoid PRIVATE
