@@ -155,7 +155,8 @@
 				21,
 				22,
 				23,
-				24
+				24,
+				25
 			]
 		}
 	],
@@ -224,74 +225,77 @@
 				3,
 				4,
 				5,
-				6
+				6,
+				7
 			]
 		},
 		{
 			"name" : "src\\game",
 			"sourceIndexes" : 
 			[
-				7,
 				8,
 				9,
 				10,
 				11,
-				12
+				12,
+				13
 			]
 		},
 		{
 			"name" : "src\\input",
 			"sourceIndexes" : 
 			[
-				13
+				14
 			]
 		},
 		{
 			"name" : "src",
 			"sourceIndexes" : 
 			[
-				14
+				15
 			]
 		},
 		{
 			"name" : "src\\states",
 			"sourceIndexes" : 
 			[
-				15,
 				16,
 				17,
 				18,
 				19,
 				20,
-				21
+				21,
+				22
 			]
 		},
 		{
 			"name" : "src\\utils",
 			"sourceIndexes" : 
 			[
-				22,
-				23
+				23,
+				24
 			]
 		},
 		{
 			"name" : "src\\vfx",
 			"sourceIndexes" : 
 			[
-				24
+				25
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				25,
 				26,
 				27,
 				28,
 				29,
 				30,
-				31
+				31,
+				32,
+				33,
+				34
 			]
 		}
 	],
@@ -325,6 +329,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/core/Resources.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/core/SaveManager.cpp",
 			"sourceGroupIndex" : 1
 		},
 		{
@@ -480,6 +490,16 @@
 		{
 			"backtrace" : 1,
 			"path" : "include/states/EnterNameState.h",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/core/GameSave.h",
+			"sourceGroupIndex" : 8
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/core/SaveManager.h",
 			"sourceGroupIndex" : 8
 		}
 	],

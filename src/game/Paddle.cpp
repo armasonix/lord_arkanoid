@@ -47,6 +47,14 @@ namespace ark
         m_collider.setBox(AABB{ p, s });
     }
 
+    void Paddle::setPosition(const sf::Vector2f& pos)
+    {
+        m_shape.setPosition(pos);
+
+        const auto size = m_shape.getSize();
+        m_collider.setBox(AABB{ pos - size * 0.5f, size });
+    }
+
     void Paddle::render(sf::RenderTarget& rt) const
     {
         rt.draw(m_shape);

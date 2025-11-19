@@ -19,9 +19,9 @@ namespace ark
 
     void Ball::reset(const sf::Vector2f& pos, const sf::Vector2f& vel)
     {
+        m_fellBelow = false;
         m_shape.setPosition(pos);
         m_vel = vel;
-        m_fellBelow = false;
 
         const float r = m_shape.getRadius();
         m_collider.setCircle(Circle{ pos, r });
@@ -51,7 +51,7 @@ namespace ark
         const float h = static_cast<float>(window.getSize().y);
         const float r = m_shape.getRadius();
 
-        // wall X
+        // walls X
         if (pos.x - r < 0.f)
         {
             pos.x = r;
@@ -77,41 +77,40 @@ namespace ark
         }
 
         // collider update
+        m_shape.setPosition(pos);
         m_collider.setCircle(Circle{ pos, r });
 
-        // collide with paddle
-
-        CollisionManifold man{};
-        if (m_collider.test(paddle.collider(), man))
+        if (!m_fellBelow)
         {
-            pos += man.normal * man.penetration;
-
-            // reflect speed from normal
-            float dot = m_vel.x * man.normal.x + m_vel.y * man.normal.y;
-            m_vel = m_vel - 2.f * dot * man.normal;
-
-            // spin x
-            const AABB padBox = paddle.aabb();
-            const float padCenter = padBox.pos.x + padBox.size.x * 0.5f;
-            const float hitOffset =
-                (pos.x - padCenter) / (padBox.size.x * 0.5f);
-
-            m_vel.x += hitOffset * 200.f;
-
-            // stabilize speed
-            const float targetSpeed = 560.f;
-            const float s = speed();
-            if (s > 1.f)
+            CollisionManifold man{};
+            if (m_collider.test(paddle.collider(), man))
             {
-                m_vel *= (targetSpeed / s);
+                pos += man.normal * man.penetration;
+
+                // reflect speed from normal
+                float dot = m_vel.x * man.normal.x + m_vel.y * man.normal.y;
+                m_vel = m_vel - 2.f * dot * man.normal;
+
+                // spin x
+                const AABB padBox = paddle.aabb();
+                const float padCenter = padBox.pos.x + padBox.size.x * 0.5f;
+                const float hitOffset =
+                    (pos.x - padCenter) / (padBox.size.x * 0.5f);
+
+                m_vel.x += hitOffset * 200.f;
+
+                // stabilize speed
+                const float targetSpeed = 560.f;
+                const float s = speed();
+                if (s > 1.f)
+                {
+                    m_vel *= (targetSpeed / s);
+                }
+
+                m_shape.setPosition(pos);
+                m_collider.setCircle(Circle{ pos, r });
             }
         }
-
-        // write position
-        m_shape.setPosition(pos);
-
-        // collider sync
-        m_collider.setCircle(Circle{ pos, r });
     }
 
     void Ball::render(sf::RenderTarget& rt) const

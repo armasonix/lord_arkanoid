@@ -80,6 +80,8 @@ namespace ark
                 --m_hp;
         }
 
+        void restore() { m_hp = m_hpMax; }
+
         bool alive() const override
         {
             return m_hp > 0;

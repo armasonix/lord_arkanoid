@@ -10,6 +10,7 @@
 				"D:/Workspace/xyz/arkanoid/src/core/GameEventBus.cpp",
 				"D:/Workspace/xyz/arkanoid/src/core/HighScoreTable.cpp",
 				"D:/Workspace/xyz/arkanoid/src/core/Resources.cpp",
+				"D:/Workspace/xyz/arkanoid/src/core/SaveManager.cpp",
 				"D:/Workspace/xyz/arkanoid/src/core/ScoreSystem.cpp",
 				"D:/Workspace/xyz/arkanoid/src/core/StateMachine.cpp",
 				"D:/Workspace/xyz/arkanoid/src/game/Ball.cpp",

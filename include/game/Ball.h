@@ -6,7 +6,6 @@
 
 namespace ark
 {
-
     class Paddle; // fwd
 
     class Ball : public GameObject
@@ -21,8 +20,8 @@ namespace ark
         ObjKind kind() const override { return ObjKind::Ball; }
         sf::Vector2f position() const override { return m_shape.getPosition(); }
 
-        float speed() const;
-        Circle circle() const;
+        float        speed() const;
+        Circle       circle() const;
         sf::Vector2f velocity() const { return m_vel; }
 
         bool fellBelow() const { return m_fellBelow; }
@@ -33,9 +32,9 @@ namespace ark
 
     private:
         sf::CircleShape m_shape;
-        sf::Vector2f m_vel;
-        bool m_fellBelow{ false };
-        Collidable m_collider;
+        sf::Vector2f    m_vel;
+        bool            m_fellBelow{ false };
+        Collidable      m_collider;
     };
 
 } // namespace ark

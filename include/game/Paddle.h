@@ -19,6 +19,7 @@ namespace ark
 
         ObjKind kind() const override { return ObjKind::Paddle; }
         sf::Vector2f position() const override { return m_shape.getPosition(); }
+        void setPosition(const sf::Vector2f& pos);
 
         AABB aabb() const;
         const sf::RectangleShape& shape() const { return m_shape; }

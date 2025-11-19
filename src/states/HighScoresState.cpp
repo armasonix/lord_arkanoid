@@ -53,7 +53,7 @@ namespace ark
 
             auto b2 = m_scores.getLocalBounds();
             m_scores.setOrigin(b2.left + b2.width * 0.5f, b2.top + b2.height * 0.5f);
-            m_scores.setPosition(cx, cy - 20.f);
+            m_scores.setPosition(cx, cy + 40.f);
 
             auto b3 = m_prompt.getLocalBounds();
             m_prompt.setOrigin(b3.left + b3.width * 0.5f, b3.top + b3.height * 0.5f);
