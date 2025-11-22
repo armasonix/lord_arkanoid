@@ -4,6 +4,7 @@
 #include "core/HighScoreTable.h"
 #include "states/MenuState.h"
 #include "audio/MusicService.h"
+#include "gfx/RgbEffects.h"
 
 namespace ark
 {
@@ -37,6 +38,14 @@ namespace ark
 
         if (m_ctx.music)
             m_ctx.music->stop();
+    }
+
+    void GameOverState::update(float dt)
+    {
+        m_time += dt;
+        auto col = m_titleBase;
+        col.a = gfx::pulseAlpha(m_time, 140, 255, 1.2f);
+        m_title.setFillColor(col);
     }
 
     void GameOverState::handleEvent(const sf::Event& e)

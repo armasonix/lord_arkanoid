@@ -15,13 +15,15 @@ namespace ark
         using State::State;
         void onEnter() override;
         void handleEvent(const sf::Event& e) override;
-        void update(float) override {}
+        void update(float dt) override;
         void render(sf::RenderTarget& rt) override;
 
     private:
         int m_finalScore = 0;
         sf::Text m_title;
         sf::Text m_prompt;
+        float m_time{ 0.f };
+        sf::Color m_promptBase{ 220, 220, 240 };
     };
 
 } // namespace ark

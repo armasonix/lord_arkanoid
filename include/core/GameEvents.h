@@ -21,7 +21,7 @@ namespace ark
 
     struct GameEvent
     {
-        GameEventType type;
+        GameEventType type{ GameEventType::BlockDestroyed };
         BlockKind blockKind = BlockKind::Unknown;
     };
 

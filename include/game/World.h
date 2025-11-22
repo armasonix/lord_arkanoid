@@ -9,7 +9,10 @@
 #include "core/GameEventBus.h"
 #include "core/GameSave.h"
 #include "core/SaveManager.h"
+#include "core/Resources.h"
 #include <random>
+#include <optional>
+#include <functional>
 
 namespace ark
 {
@@ -18,7 +21,7 @@ namespace ark
     class World
     {
     public:
-        explicit World(sf::RenderWindow& window, GameEventBus& events, ScoreSystem& scoreSystem);
+        explicit World(sf::RenderWindow& window, ResourceManager& resources, GameEventBus& events, ScoreSystem& scoreSystem);
 
         void update(float dt, class InputSystem& input);
         void render(sf::RenderTarget& rt);
@@ -57,8 +60,11 @@ namespace ark
         void spawnBonus(const sf::Vector2f& pos);
         void activateBonus(std::unique_ptr<BonusEffect> effect);
         void resetBonusEffects();
+        void updateBonusBanner(float dt);
+        void showBonusBanner(BonusKind kind);
 
         gfx::Starfield    m_starfield;
+        ResourceManager& m_resources;
         sf::RenderWindow& m_window;
         GameEventBus& m_events;
         ScoreSystem& m_scoreSystem;
@@ -90,6 +96,14 @@ namespace ark
         bool m_slowPaddleActive{ false };
         float m_fireballSpeedBoost{ 1.35f };
         std::mt19937 m_rng{ std::random_device{}() };
+        struct BonusBanner
+        {
+            sf::Text text;
+            float remaining{ 0.f };
+            float duration{ 1.6f };
+            std::function<sf::Color(float)> colorize;
+        };
+        std::optional<BonusBanner> m_bonusBanner;
     };
 
 } // namespace ark

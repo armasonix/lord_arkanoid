@@ -5,6 +5,7 @@
 #include "states/PlayState.h"
 #include "states/MenuState.h"
 #include "audio/MusicService.h"
+#include "gfx/RgbEffects.h"
 
 namespace ark
 {
@@ -46,6 +47,15 @@ namespace ark
 
         if (m_ctx.music)
             m_ctx.music->stop();
+    }
+
+    void WinState::update(float dt)
+    {
+        m_time += dt;
+
+        auto promptColor = m_promptBase;
+        promptColor.a = gfx::pulseAlpha(m_time, 120, 255, 1.3f);
+        m_prompt.setFillColor(promptColor);
     }
 
     void WinState::handleEvent(const sf::Event& e)

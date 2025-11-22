@@ -3,14 +3,16 @@
 #include "core/SaveManager.h"
 #include "core/GameSave.h"
 #include "core/ScoreSystem.h"
+#include "gfx/RgbEffects.h"
 #include <iostream>
 #include <new>
 
 namespace ark
 {
 
-    World::World(sf::RenderWindow& window, GameEventBus& events, ScoreSystem& scoreSystem)
-        : m_window(window)
+    World::World(sf::RenderWindow& window, ResourceManager& resources, GameEventBus& events, ScoreSystem& scoreSystem)
+        : m_resources(resources)
+        , m_window(window)
         , m_events(events)
         , m_scoreSystem(scoreSystem)
         , m_paddle({ 160.f, 20.f }, { window.getSize().x * 0.5f, window.getSize().y - 50.f })
@@ -61,6 +63,7 @@ namespace ark
         // shake and background
         m_shake.update(dt);
         m_starfield.update(dt, m_window.getSize());
+        updateBonusBanner(dt);
     }
 
     void World::render(sf::RenderTarget& rt)
@@ -105,6 +108,21 @@ namespace ark
         if (auto* wnd = dynamic_cast<sf::RenderWindow*>(&rt))
         {
             wnd->setView(prevView);
+        }
+
+        if (m_bonusBanner)
+        {
+            auto banner = *m_bonusBanner;
+            banner.text.setFillColor(banner.colorize(banner.duration - banner.remaining));
+
+            // fade at edges of lifetime
+            const float lifeNorm = banner.remaining / banner.duration;
+            const float fade = lifeNorm < 0.25f ? lifeNorm / 0.25f : (lifeNorm > 0.8f ? (1.f - lifeNorm) / 0.2f : 1.f);
+            auto col = banner.text.getFillColor();
+            col.a = static_cast<sf::Uint8>(static_cast<float>(col.a) * std::clamp(fade, 0.f, 1.f));
+            banner.text.setFillColor(col);
+
+            rt.draw(banner.text);
         }
     }
 
@@ -195,6 +213,7 @@ namespace ark
             auto& bonus = *it;
             if (bonus->alive() && bonus->tryCollect(m_paddle))
             {
+                showBonusBanner(bonus->bonusKind());
                 activateBonus(bonus->takeEffect());
             }
 
@@ -221,6 +240,66 @@ namespace ark
                 ++it;
             }
         }
+    }
+
+    void World::updateBonusBanner(float dt)
+    {
+        if (!m_bonusBanner)
+            return;
+
+        auto& banner = *m_bonusBanner;
+        banner.remaining -= dt;
+        if (banner.remaining <= 0.f)
+        {
+            m_bonusBanner.reset();
+        }
+    }
+
+    void World::showBonusBanner(BonusKind kind)
+    {
+        static const sf::Color RANDOM_COLOR{ 210, 120, 255 };
+        static const sf::Color SMALL_COLOR{ 255, 120, 140 };
+        static const sf::Color SLOW_COLOR{ 140, 200, 120 };
+
+        BonusBanner banner;
+        banner.text.setFont(m_resources.font("mono"));
+        banner.text.setCharacterSize(36);
+        banner.remaining = banner.duration;
+
+        switch (kind)
+        {
+        case BonusKind::FireBall:
+            banner.text.setString("FIREPOWER");
+            banner.colorize = [](float t) { return gfx::warmRainbowColor(t, 1.6f); };
+            break;
+        case BonusKind::FragileBlocks:
+            banner.text.setString("FRAGILITY");
+            banner.colorize = [](float t) { return gfx::coolRainbowColor(t, 1.4f); };
+            break;
+        case BonusKind::SlowPaddle:
+            banner.text.setString("SLOW DOWN");
+            banner.colorize = [](float t) { return gfx::baseColorPulse(SLOW_COLOR, t, 1.2f, 0.35f); };
+            break;
+        case BonusKind::RandomBounce:
+            banner.text.setString("LET IT RANDOM");
+            banner.colorize = [](float t) { return gfx::baseColorPulse(RANDOM_COLOR, t, 1.35f, 0.45f); };
+            break;
+        case BonusKind::SmallPaddle:
+            banner.text.setString("SMALL DOWN");
+            banner.colorize = [](float t) { return gfx::baseColorPulse(SMALL_COLOR, t, 1.25f, 0.35f); };
+            break;
+        default:
+            banner.text.setString("BONUS!");
+            banner.colorize = [](float t) { return gfx::rainbowColor(t, 1.2f); };
+            break;
+        }
+
+        auto bounds = banner.text.getLocalBounds();
+        banner.text.setOrigin(bounds.left + bounds.width * 0.5f, bounds.top + bounds.height * 0.5f);
+        banner.text.setPosition(static_cast<float>(m_window.getSize().x) * 0.5f, 330.f);
+
+        banner.text.setFillColor(banner.colorize(0.f));
+        m_bonusBanner = std::move(banner);
     }
 
     void World::spawnBonus(const sf::Vector2f& pos)

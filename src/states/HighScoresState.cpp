@@ -2,6 +2,7 @@
 #include "core/Resources.h"
 #include "core/StateMachine.h"
 #include "states/MenuState.h"
+#include "gfx/RgbEffects.h"
 
 namespace ark
 {
@@ -12,7 +13,7 @@ namespace ark
 
         // header
         m_title.setFont(font);
-        m_title.setCharacterSize(48);
+        m_title.setCharacterSize(60);
         m_title.setFillColor(sf::Color(240, 240, 240));
         m_title.setString("HIGH SCORES");
 
@@ -38,7 +39,7 @@ namespace ark
         // hint
         m_prompt.setFont(font);
         m_prompt.setCharacterSize(22);
-        m_prompt.setFillColor(sf::Color(200, 200, 200));
+        m_prompt.setFillColor(m_promptBase);
         m_prompt.setString("Press ENTER to return in main menu");
 
         if (m_ctx.window)
@@ -59,6 +60,16 @@ namespace ark
             m_prompt.setOrigin(b3.left + b3.width * 0.5f, b3.top + b3.height * 0.5f);
             m_prompt.setPosition(cx, cy + 220.f);
         }
+    }
+
+    void HighScoresState::update(float dt)
+    {
+        m_time += dt;
+        m_title.setFillColor(gfx::rainbowColor(m_time, 1.1f));
+
+        auto promptColor = m_promptBase;
+        promptColor.a = gfx::pulseAlpha(m_time, 110, 255, 1.6f);
+        m_prompt.setFillColor(promptColor);
     }
 
     void HighScoresState::handleEvent(const sf::Event& e)

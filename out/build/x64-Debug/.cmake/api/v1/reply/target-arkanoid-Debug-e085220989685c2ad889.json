@@ -157,7 +157,8 @@
 				23,
 				24,
 				25,
-				26
+				26,
+				27
 			]
 		}
 	],
@@ -244,52 +245,58 @@
 			]
 		},
 		{
-			"name" : "src\\input",
+			"name" : "src\\gfx",
 			"sourceIndexes" : 
 			[
 				15
 			]
 		},
 		{
-			"name" : "src",
+			"name" : "src\\input",
 			"sourceIndexes" : 
 			[
 				16
 			]
 		},
 		{
+			"name" : "src",
+			"sourceIndexes" : 
+			[
+				17
+			]
+		},
+		{
 			"name" : "src\\states",
 			"sourceIndexes" : 
 			[
-				17,
 				18,
 				19,
 				20,
 				21,
 				22,
-				23
+				23,
+				24
 			]
 		},
 		{
 			"name" : "src\\utils",
 			"sourceIndexes" : 
 			[
-				24,
-				25
+				25,
+				26
 			]
 		},
 		{
 			"name" : "src\\vfx",
 			"sourceIndexes" : 
 			[
-				26
+				27
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				27,
 				28,
 				29,
 				30,
@@ -298,7 +305,10 @@
 				33,
 				34,
 				35,
-				36
+				36,
+				37,
+				38,
+				39
 			]
 		}
 	],
@@ -397,124 +407,140 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/input/InputSystem.cpp",
+			"path" : "src/gfx/RgbEffects.cpp",
 			"sourceGroupIndex" : 3
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/main.cpp",
+			"path" : "src/input/InputSystem.cpp",
 			"sourceGroupIndex" : 4
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/states/BootState.cpp",
+			"path" : "src/main.cpp",
 			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/states/BootState.cpp",
+			"sourceGroupIndex" : 6
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/states/EnterNameState.cpp",
-			"sourceGroupIndex" : 5
+			"sourceGroupIndex" : 6
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/states/GameOverState.cpp",
-			"sourceGroupIndex" : 5
+			"sourceGroupIndex" : 6
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/states/HighScoresState.cpp",
-			"sourceGroupIndex" : 5
+			"sourceGroupIndex" : 6
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/states/MenuState.cpp",
-			"sourceGroupIndex" : 5
+			"sourceGroupIndex" : 6
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/states/PlayState.cpp",
-			"sourceGroupIndex" : 5
+			"sourceGroupIndex" : 6
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/states/WinState.cpp",
-			"sourceGroupIndex" : 5
+			"sourceGroupIndex" : 6
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/utils/DebugOverlay.cpp",
-			"sourceGroupIndex" : 6
+			"sourceGroupIndex" : 7
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/utils/Profiler.cpp",
-			"sourceGroupIndex" : 6
+			"sourceGroupIndex" : 7
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/vfx/CameraShake.cpp",
-			"sourceGroupIndex" : 7
+			"sourceGroupIndex" : 8
 		},
 		{
 			"backtrace" : 1,
 			"path" : "include/core/GameEvents.h",
-			"sourceGroupIndex" : 8
+			"sourceGroupIndex" : 9
 		},
 		{
 			"backtrace" : 1,
 			"path" : "include/core/GameEventBus.h",
-			"sourceGroupIndex" : 8
+			"sourceGroupIndex" : 9
 		},
 		{
 			"backtrace" : 1,
 			"path" : "include/core/ScoreSystem.h",
-			"sourceGroupIndex" : 8
+			"sourceGroupIndex" : 9
 		},
 		{
 			"backtrace" : 1,
 			"path" : "include/core/HighScoreTable.h",
-			"sourceGroupIndex" : 8
+			"sourceGroupIndex" : 9
 		},
 		{
 			"backtrace" : 1,
 			"path" : "include/states/HighScoresState.h",
-			"sourceGroupIndex" : 8
+			"sourceGroupIndex" : 9
 		},
 		{
 			"backtrace" : 1,
 			"path" : "include/core/HighScoreEntry.h",
-			"sourceGroupIndex" : 8
+			"sourceGroupIndex" : 9
 		},
 		{
 			"backtrace" : 1,
 			"path" : "include/states/EnterNameState.h",
-			"sourceGroupIndex" : 8
+			"sourceGroupIndex" : 9
 		},
 		{
 			"backtrace" : 1,
 			"path" : "include/core/GameSave.h",
-			"sourceGroupIndex" : 8
+			"sourceGroupIndex" : 9
 		},
 		{
 			"backtrace" : 1,
 			"path" : "include/core/SaveManager.h",
-			"sourceGroupIndex" : 8
+			"sourceGroupIndex" : 9
 		},
 		{
 			"backtrace" : 1,
 			"path" : "include/game/Bonus.h",
-			"sourceGroupIndex" : 8
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/gfx/RgbEffects.h",
+			"sourceGroupIndex" : 9
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/gfx/TwinkleStarfield.h",
+			"sourceGroupIndex" : 9
 		}
 	],
 	"type" : "EXECUTABLE"

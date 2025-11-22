@@ -2,6 +2,7 @@
 #include "game/GameState.h"
 #include "core/Resources.h"
 #include <SFML/Graphics.hpp>
+#include "gfx/RgbEffects.h"
 #include <utility>
 #include <vector>
 
@@ -63,7 +64,7 @@ namespace ark
             m_hint.setFont(font);
             m_hint.setString("Use UP/DOWN to navigate, ENTER to select");
             m_hint.setCharacterSize(20);
-            m_hint.setFillColor(sf::Color(220, 220, 220));
+            m_hint.setFillColor(m_hintBase);
 
             m_status.setFont(font);
             m_status.setCharacterSize(18);
@@ -137,8 +138,13 @@ namespace ark
             }
         }
 
-        void update(float) override
-        {}
+        void update(float dt) override
+        {
+            m_time += dt;
+            auto hintColor = m_hintBase;
+            hintColor.a = gfx::pulseAlpha(m_time, 120, 255, 1.5f);
+            m_hint.setFillColor(hintColor);
+        }
 
         void render(sf::RenderTarget& rt) override
         {
@@ -197,6 +203,8 @@ namespace ark
         sf::RectangleShape m_overlay;
         std::vector<sf::Text> m_options;
         int m_selected{ 0 };
+        float m_time{ 0.f };
+        sf::Color m_hintBase{ 220, 220, 220 };
     };
 
     // game
@@ -204,9 +212,9 @@ namespace ark
     Game::Game(Context ctx)
         : m_ctx(ctx)
     {
-        if (m_ctx.window)
+        if (m_ctx.window && m_ctx.resources)
         {
-            m_world = std::make_unique<World>(*m_ctx.window, m_eventBus, m_scoreSystem);
+            m_world = std::make_unique<World>(*m_ctx.window, *m_ctx.resources, m_eventBus, m_scoreSystem);
         }
 
         changeState(std::make_unique<PlayingGameState>(*this));
@@ -265,10 +273,10 @@ namespace ark
 
     void Game::resetLevel()
     {
-        if (!m_ctx.window)
+        if (!m_ctx.window || !m_ctx.resources)
             return;
 
-        m_world = std::make_unique<World>(*m_ctx.window, m_eventBus, m_scoreSystem);
+        m_world = std::make_unique<World>(*m_ctx.window, *m_ctx.resources, m_eventBus, m_scoreSystem);
         changeState(std::make_unique<PlayingGameState>(*this));
     }
 

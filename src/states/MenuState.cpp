@@ -5,6 +5,7 @@
 #include "states/PlayState.h"
 #include "states/HighScoresState.h"
 #include "audio/MusicService.h"
+#include "gfx/RgbEffects.h"
 
 namespace ark
 {
@@ -14,13 +15,13 @@ namespace ark
         auto& font = m_ctx.resources->font("mono");
         m_title.setFont(font);
         m_title.setString("LORD ARKANOID");
-        m_title.setCharacterSize(48);
+        m_title.setCharacterSize(72);
         m_title.setFillColor(sf::Color::White);
 
         m_hint.setFont(font);
         m_hint.setString("");
         m_hint.setCharacterSize(18);
-        m_hint.setFillColor(sf::Color(220, 180, 180));
+        m_hint.setFillColor(m_hintBaseColor);
 
         m_items = { "PLAY", "LOAD GAME", "HIGHSCORES", "EXIT" };
 
@@ -40,6 +41,7 @@ namespace ark
             auto sz = m_ctx.window->getSize();
             float cx = static_cast<float>(sz.x) * 0.5f;
             float cy = static_cast<float>(sz.y) * 0.5f;
+            m_starfield.init(sz, /*count*/ 800);
             {
                 auto b = m_title.getLocalBounds();
                 m_title.setOrigin(b.left + b.width * 0.5f, b.top + b.height * 0.5f);
@@ -64,6 +66,7 @@ namespace ark
         }
 
         m_selected = 0;
+        m_time = 0.f;
 
         if (m_ctx.music)
             m_ctx.music->playTheme(true);
@@ -130,10 +133,25 @@ namespace ark
         }
     }
 
-    void MenuState::update(float) {}
+    void MenuState::update(float dt)
+    {
+        m_time += dt;
+        m_starfield.update(dt);
+
+        m_title.setFillColor(gfx::rainbowColor(m_time, 1.1f));
+
+        if (!m_hint.getString().isEmpty())
+        {
+            auto col = m_hintBaseColor;
+            col.a = gfx::pulseAlpha(m_time, 120, 255, 1.5f);
+            m_hint.setFillColor(col);
+        }
+    }
 
     void MenuState::render(sf::RenderTarget& rt)
     {
+        m_starfield.render(rt);
+        m_title.setFillColor(gfx::rainbowColor(m_time, 1.1f));
         rt.draw(m_title);
 
         // hover

@@ -20,6 +20,7 @@
 				"D:/Workspace/xyz/arkanoid/src/game/Game.cpp",
 				"D:/Workspace/xyz/arkanoid/src/game/Paddle.cpp",
 				"D:/Workspace/xyz/arkanoid/src/game/World.cpp",
+				"D:/Workspace/xyz/arkanoid/src/gfx/RgbEffects.cpp",
 				"D:/Workspace/xyz/arkanoid/src/input/InputSystem.cpp",
 				"D:/Workspace/xyz/arkanoid/src/main.cpp",
 				"D:/Workspace/xyz/arkanoid/src/states/BootState.cpp",

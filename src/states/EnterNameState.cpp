@@ -6,6 +6,7 @@
 #include "audio/SoundService.h"
 #include "audio/MusicService.h"
 #include "states/GameOverState.h"
+#include "gfx/RgbEffects.h"
 #include <cctype>
 
 namespace ark
@@ -57,6 +58,14 @@ namespace ark
             m_prompt.setOrigin(pb.left + pb.width / 2, pb.top + pb.height / 2);
             m_prompt.setPosition(cx, cy + 120);
         }
+    }
+
+    void EnterNameState::update(float dt)
+    {
+        m_time += dt;
+        auto promptColor = m_promptBase;
+        promptColor.a = gfx::pulseAlpha(m_time, 120, 255, 1.4f);
+        m_prompt.setFillColor(promptColor);
     }
 
     void EnterNameState::handleEvent(const sf::Event& e)
