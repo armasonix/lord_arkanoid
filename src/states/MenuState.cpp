@@ -1,6 +1,7 @@
 #include "states/MenuState.h"
 #include "core/StateMachine.h"
 #include "core/Resources.h"
+#include "core/SaveManager.h"
 #include "states/PlayState.h"
 #include "states/HighScoresState.h"
 #include "audio/MusicService.h"
@@ -16,7 +17,12 @@ namespace ark
         m_title.setCharacterSize(48);
         m_title.setFillColor(sf::Color::White);
 
-        m_items = {"PLAY", "HIGHSCORES", "EXIT"};
+        m_hint.setFont(font);
+        m_hint.setString("");
+        m_hint.setCharacterSize(18);
+        m_hint.setFillColor(sf::Color(220, 180, 180));
+
+        m_items = { "PLAY", "LOAD GAME", "HIGHSCORES", "EXIT" };
 
         m_textItems.clear();
         for (auto& s : m_items)
@@ -48,6 +54,12 @@ namespace ark
                 auto b = m_textItems[i].getLocalBounds();
                 m_textItems[i].setOrigin(b.left + b.width * 0.5f, b.top + b.height * 0.5f);
                 m_textItems[i].setPosition(cx, startY + step * i);
+            }
+
+            {
+                auto b = m_hint.getLocalBounds();
+                m_hint.setOrigin(b.left + b.width * 0.5f, b.top + b.height * 0.5f);
+                m_hint.setPosition(cx, cy + step * static_cast<float>(m_textItems.size()) + 10.f);
             }
         }
 
@@ -82,6 +94,30 @@ namespace ark
             {
                 m_ctx.states->push<PlayState>();
             }
+            else if (choice == "LOAD GAME")
+            {
+                GameSave save;
+                if (SaveManager::load(save, DEFAULT_SAVE_FILE))
+                {
+                    m_ctx.states->push<PlayState>(true, DEFAULT_SAVE_FILE);
+                }
+                else
+                {
+                    m_hint.setString("No save file found");
+
+                    auto b = m_hint.getLocalBounds();
+                    if (m_ctx.window)
+                    {
+                        auto sz = m_ctx.window->getSize();
+                        float cx = static_cast<float>(sz.x) * 0.5f;
+                        float cy = static_cast<float>(sz.y) * 0.5f;
+                        float startY = cy - 40.f;
+                        float step = 50.f;
+                        m_hint.setOrigin(b.left + b.width * 0.5f, b.top + b.height * 0.5f);
+                        m_hint.setPosition(cx, startY + step * static_cast<float>(m_textItems.size()) + 10.f);
+                    }
+                }
+            }
             else if (choice == "HIGHSCORES")
             {
                 m_ctx.states->push<HighScoresState>();
@@ -110,6 +146,9 @@ namespace ark
 
             rt.draw(m_textItems[i]);
         }
+
+        if (!m_hint.getString().isEmpty())
+            rt.draw(m_hint);
     }
 
 } // namespace ark

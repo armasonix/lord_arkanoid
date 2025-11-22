@@ -2,15 +2,17 @@
 #include "utils/Profiler.h"
 #include "core/SaveManager.h"
 #include "core/GameSave.h"
+#include "core/ScoreSystem.h"
 #include <iostream>
 #include <new>
 
 namespace ark
 {
 
-    World::World(sf::RenderWindow& window, GameEventBus& events)
+    World::World(sf::RenderWindow& window, GameEventBus& events, ScoreSystem& scoreSystem)
         : m_window(window)
         , m_events(events)
+        , m_scoreSystem(scoreSystem)
         , m_paddle({ 160.f, 20.f }, { window.getSize().x * 0.5f, window.getSize().y - 50.f })
         , m_ball(10.f, { window.getSize().x * 0.5f, window.getSize().y * 0.6f }, { 200.f, -300.f })
         , m_baseView(window.getDefaultView())
@@ -169,8 +171,11 @@ namespace ark
 
         if (!m_ball.fellBelow())
         {
-            m_lifeSave = createSave();
-            m_hasLifeSave = true;
+            if (m_ball.velocity().y < 0.f)
+            {
+                m_lifeSave = createSave();
+                m_hasLifeSave = true;
+            }
             return;
         }
 
@@ -214,7 +219,7 @@ namespace ark
             s.blocks.push_back(bs);
         }
 
-        s.score = m_score;
+        s.score = m_scoreSystem.score();
         s.lives = m_lives;
 
         return s;
@@ -231,8 +236,8 @@ namespace ark
             new (&m_paddle) Paddle(paddleSize, s.paddlePosition);
         }
 
-        m_score = s.score;
         m_lives = s.lives;
+        m_scoreSystem.setScore(s.score);
 
         auto& blocks = m_blocks.blocks();
         for (std::size_t i = 0; i < blocks.size() && i < s.blocks.size(); ++i)
@@ -256,7 +261,9 @@ namespace ark
                 }
             }
         }
+        m_gameOver = false;
     }
+
 
     bool World::saveToFile(const std::string& path)
     {

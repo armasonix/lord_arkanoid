@@ -9,6 +9,11 @@
 #include "audio/SoundService.h"
 #include "audio/MusicService.h"
 
+namespace
+{
+    constexpr const char* QUICK_SAVE_FILE = "savegame.dat";
+}
+
 namespace ark
 {
 
@@ -16,6 +21,15 @@ namespace ark
     {
         // create Game
         m_game = std::make_unique<Game>(m_ctx);
+
+        if (m_loadSavedGame)
+        {
+            if (m_game->loadFromFile(m_initialSavePath))
+            {
+                m_goQueued = false;
+                m_winQueued = false;
+            }
+        }
 
         if (m_ctx.music)
             m_ctx.music->playLevel(true);
@@ -33,8 +47,26 @@ namespace ark
 
     void PlayState::handleEvent(const sf::Event& e)
     {
-        if (m_game)
-            m_game->handleEvent(e);
+        if (!m_game)
+            return;
+
+        if (e.type == sf::Event::KeyPressed)
+        {
+            if (e.key.code == sf::Keyboard::F5)
+            {
+                m_game->saveToFile(DEFAULT_SAVE_FILE);
+            }
+            else if (e.key.code == sf::Keyboard::F9)
+            {
+                if (m_game->loadFromFile(DEFAULT_SAVE_FILE))
+                {
+                    m_goQueued = false;
+                    m_winQueued = false;
+                }
+            }
+        }
+
+        m_game->handleEvent(e);
     }
 
     void PlayState::update(float dt)
@@ -96,6 +128,27 @@ namespace ark
             }
 
             rt.draw(m_scoreText);
+
+            const int lives = m_game->lives();
+            if (lives > 0)
+            {
+                constexpr float LIFE_RADIUS = 8.f;
+                constexpr float LIFE_SPACING = 6.f;
+                constexpr float LIFE_OFFSET_X = 10.f;
+                constexpr float LIFE_OFFSET_Y = 10.f;
+
+                sf::CircleShape lifeShape(LIFE_RADIUS);
+                lifeShape.setFillColor(sf::Color(220, 40, 40));
+                lifeShape.setOutlineColor(sf::Color(120, 15, 15));
+                lifeShape.setOutlineThickness(1.f);
+
+                for (int i = 0; i < lives; ++i)
+                {
+                    const float x = LIFE_OFFSET_X + static_cast<float>(i) * (LIFE_RADIUS * 2.f + LIFE_SPACING);
+                    lifeShape.setPosition(x, LIFE_OFFSET_Y);
+                    rt.draw(lifeShape);
+                }
+            }
         }
 
         if (m_ctx.debug->visible())

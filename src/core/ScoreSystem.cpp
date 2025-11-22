@@ -8,6 +8,11 @@ namespace ark
         m_score = 0;
     }
 
+    void ScoreSystem::setScore(int score)
+    {
+        m_score = score;
+    }
+
     void ScoreSystem::onGameEvent(const GameEvent& event)
     {
         if (event.type != GameEventType::BlockDestroyed)

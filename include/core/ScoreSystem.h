@@ -10,6 +10,7 @@ namespace ark
         ScoreSystem() = default;
 
         void reset();
+        void setScore(int score);
         int score() const { return m_score; }
 
         // event react

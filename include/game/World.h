@@ -11,15 +11,18 @@
 
 namespace ark
 {
+    class ScoreSystem;
+
     class World
     {
     public:
-        explicit World(sf::RenderWindow& window, GameEventBus& events);
+        explicit World(sf::RenderWindow& window, GameEventBus& events, ScoreSystem& scoreSystem);
 
         void update(float dt, class InputSystem& input);
         void render(sf::RenderTarget& rt);
 
         float ballSpeed() const { return m_ball.speed(); }
+        int   lives() const { return m_lives; }
 
         bool isBallLost() const;
         void resetBall();
@@ -38,6 +41,7 @@ namespace ark
         gfx::Starfield    m_starfield;
         sf::RenderWindow& m_window;
         GameEventBus& m_events;
+        ScoreSystem& m_scoreSystem;
 
         Paddle     m_paddle;
         Ball       m_ball;
@@ -50,8 +54,7 @@ namespace ark
         GameSave m_lifeSave{};
         bool     m_hasLifeSave{ false };
 
-        int  m_lives = 3;
-        int  m_score = 0;
+        int  m_lives = 2;
         bool m_gameOver = false;
     };
 

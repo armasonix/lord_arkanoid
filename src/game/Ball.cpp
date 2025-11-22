@@ -71,7 +71,7 @@ namespace ark
         }
 
         // bot
-        if (pos.y - r > h)
+        if (pos.y + r > h)
         {
             m_fellBelow = true;
         }

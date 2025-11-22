@@ -1,4 +1,5 @@
 #include "core/GameEventBus.h"
+#include <algorithm>
 
 namespace ark
 {

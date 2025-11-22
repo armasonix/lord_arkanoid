@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <string>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include "core/State.h"
@@ -10,6 +11,8 @@
 
 namespace ark
 {
+    constexpr const char* DEFAULT_SAVE_FILE = "savegame.dat";
+
     // Game incapsulate World
     // update / render + isBallLost, victory, ballSpeed
     class Game
@@ -23,9 +26,12 @@ namespace ark
         bool isBallLost() const;
         bool victory() const;
         float ballSpeed() const;
+        int lives() const;
         void resetLevel();
         void togglePause();
         bool isPaused() const;
+        bool saveToFile(const std::string& path);
+        bool loadFromFile(const std::string& path);
 
         World& world();
         const World& world() const;

@@ -1,14 +1,19 @@
 #pragma once
 #include "core/State.h"
-#include <memory>
 #include "game/Game.h"
+#include <memory>
+#include <string>
 
 namespace ark
 {
 class PlayState : public State
 {
 public:
-    using State::State;
+    PlayState(Context ctx, bool loadSavedGame = false, std::string savePath = DEFAULT_SAVE_FILE)
+        : State(ctx)
+        , m_loadSavedGame(loadSavedGame)
+        , m_initialSavePath(std::move(savePath))
+    {}
     void onEnter() override;
     void handleEvent(const sf::Event& e) override;
     void update(float dt) override;
@@ -21,6 +26,8 @@ private:
     bool m_winQueued{ false };
 
     sf::Text m_scoreText;
+    bool m_loadSavedGame{ false };
+    std::string m_initialSavePath;
 };
 
 } // namespace ark
