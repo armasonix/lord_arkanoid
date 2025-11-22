@@ -42,7 +42,7 @@ namespace ark
         const float W = (float)win.getSize().x;
         const float H = (float)win.getSize().y;
 
-        const float side = gap;
+        const float side = sideMargin;
 
         const float availW = std::max(0.f, W - 2.f * side);
         int cols = (int)std::floor((availW + gap) / (targetBW + gap));
@@ -67,7 +67,7 @@ namespace ark
         int rows = std::clamp(desiredRows, 1, std::max(1, maxRowsFit));
 
         const float bh = targetBH;
-        const float startX = gap;
+        const float startX = side;
 
         std::uniform_int_distribution<int> dist(0, 2); // 0=Low,1=Med,2=Hev
 

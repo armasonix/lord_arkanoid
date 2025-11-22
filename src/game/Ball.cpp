@@ -1,7 +1,7 @@
 #include "game/Ball.h"
 #include "game/Paddle.h"
 #include "game/Collision.h"
-
+#include <algorithm>
 #include <cmath>
 
 namespace ark
@@ -13,15 +13,16 @@ namespace ark
     {
         m_shape.setRadius(r);
         m_shape.setOrigin(r, r);
-        m_shape.setFillColor(sf::Color(240, 240, 255));
+        m_baseColor = sf::Color(240, 240, 255);
+        m_shape.setFillColor(m_baseColor);
         m_shape.setPosition(startPos);
     }
 
     void Ball::reset(const sf::Vector2f& pos, const sf::Vector2f& vel)
     {
+        m_fellBelow = false;
         m_shape.setPosition(pos);
         m_vel = vel;
-        m_fellBelow = false;
 
         const float r = m_shape.getRadius();
         m_collider.setCircle(Circle{ pos, r });
@@ -51,7 +52,7 @@ namespace ark
         const float h = static_cast<float>(window.getSize().y);
         const float r = m_shape.getRadius();
 
-        // wall X
+        // walls X
         if (pos.x - r < 0.f)
         {
             pos.x = r;
@@ -71,52 +72,81 @@ namespace ark
         }
 
         // bot
-        if (pos.y - r > h)
+        if (pos.y + r > h)
         {
             m_fellBelow = true;
         }
 
         // collider update
+        m_shape.setPosition(pos);
         m_collider.setCircle(Circle{ pos, r });
 
-        // collide with paddle
-
-        CollisionManifold man{};
-        if (m_collider.test(paddle.collider(), man))
+        if (!m_fellBelow)
         {
-            pos += man.normal * man.penetration;
-
-            // reflect speed from normal
-            float dot = m_vel.x * man.normal.x + m_vel.y * man.normal.y;
-            m_vel = m_vel - 2.f * dot * man.normal;
-
-            // spin x
-            const AABB padBox = paddle.aabb();
-            const float padCenter = padBox.pos.x + padBox.size.x * 0.5f;
-            const float hitOffset =
-                (pos.x - padCenter) / (padBox.size.x * 0.5f);
-
-            m_vel.x += hitOffset * 200.f;
-
-            // stabilize speed
-            const float targetSpeed = 560.f;
-            const float s = speed();
-            if (s > 1.f)
+            CollisionManifold man{};
+            if (m_collider.test(paddle.collider(), man))
             {
-                m_vel *= (targetSpeed / s);
+                pos += man.normal * man.penetration;
+
+                // reflect speed from normal
+                if (m_randomBounce)
+                {
+                    std::uniform_real_distribution<float> angle(-0.7f, 0.7f);
+                    float     dir = -3.1415926f * 0.5f + angle(m_rng);
+                    const float targetSpeed = m_baseTargetSpeed * m_speedScale;
+                    m_vel = { std::cos(dir) * targetSpeed, std::sin(dir) * targetSpeed };
+                }
+                else
+                {
+                    float dot = m_vel.x * man.normal.x + m_vel.y * man.normal.y;
+                    m_vel = m_vel - 2.f * dot * man.normal;
+
+                    // spin x
+                    const AABB padBox = paddle.aabb();
+                    const float padCenter = padBox.pos.x + padBox.size.x * 0.5f;
+                    const float hitOffset =
+                        (pos.x - padCenter) / (padBox.size.x * 0.5f);
+
+                    m_vel.x += hitOffset * 200.f;
+
+                    // stabilize speed
+                    const float targetSpeed = m_baseTargetSpeed * m_speedScale;
+                    const float s = speed();
+                    if (s > 1.f)
+                    {
+                        m_vel *= (targetSpeed / s);
+                    }
+                }
+
+                m_shape.setPosition(pos);
+                m_collider.setCircle(Circle{ pos, r });
             }
         }
-
-        // write position
-        m_shape.setPosition(pos);
-
-        // collider sync
-        m_collider.setCircle(Circle{ pos, r });
     }
 
     void Ball::render(sf::RenderTarget& rt) const
     {
         rt.draw(m_shape);
+    }
+
+    void Ball::setSpeedScale(float scale)
+    {
+        m_speedScale = std::max(0.25f, scale);
+    }
+
+    void Ball::setPiercing(bool piercing)
+    {
+        m_piercing = piercing;
+    }
+
+    void Ball::setRandomBounce(bool randomBounce)
+    {
+        m_randomBounce = randomBounce;
+    }
+
+    void Ball::setColor(const sf::Color& color)
+    {
+        m_shape.setFillColor(color);
     }
 
 } // namespace ark

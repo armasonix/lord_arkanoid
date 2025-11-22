@@ -1,5 +1,6 @@
 #include "game/Paddle.h"
 #include "game/Collision.h"
+#include <algorithm>
 
 namespace ark
 {
@@ -11,6 +12,7 @@ namespace ark
         m_shape.setOrigin(size.x * 0.5f, size.y * 0.5f);
         m_shape.setFillColor(sf::Color(220, 220, 240));
         m_shape.setPosition(startPos);
+        m_baseSize = size;
     }
 
     void Paddle::update(float dt)
@@ -25,7 +27,7 @@ namespace ark
         if (input.mode() == ControlMode::Keyboard)
         {
             float dir = (input.right() ? 1.f : 0.f) - (input.left() ? 1.f : 0.f);
-            pos.x += dir * m_speed * dt;
+            pos.x += dir * (m_baseSpeed * m_speedMultiplier) * dt;
         }
         else
         {
@@ -45,6 +47,30 @@ namespace ark
         auto s = m_shape.getSize();
         auto p = m_shape.getPosition() - s * 0.5f;
         m_collider.setBox(AABB{ p, s });
+    }
+
+    void Paddle::setPosition(const sf::Vector2f& pos)
+    {
+        m_shape.setPosition(pos);
+
+        const auto size = m_shape.getSize();
+        m_collider.setBox(AABB{ pos - size * 0.5f, size });
+    }
+
+    void Paddle::setSizeMultiplier(float factor)
+    {
+        const float clamped = std::clamp(factor, 0.35f, 2.5f);
+        sf::Vector2f newSize = m_baseSize * clamped;
+        auto pos = m_shape.getPosition();
+        m_shape.setSize(newSize);
+        m_shape.setOrigin(newSize.x * 0.5f, newSize.y * 0.5f);
+        m_shape.setPosition(pos);
+        m_collider.setBox(AABB{ pos - newSize * 0.5f, newSize });
+    }
+
+    void Paddle::setSpeedMultiplier(float factor)
+    {
+        m_speedMultiplier = std::clamp(factor, 0.25f, 2.5f);
     }
 
     void Paddle::render(sf::RenderTarget& rt) const

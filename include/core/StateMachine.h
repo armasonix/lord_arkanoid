@@ -2,10 +2,8 @@
 #include <memory>
 #include <vector>
 #include <functional>
-#include <SFML/Graphics.hpp> 
-#include "core/State.h"  
-
-class State;
+#include <SFML/Graphics.hpp>
+#include "core/State.h"
 
 namespace ark 
 {
