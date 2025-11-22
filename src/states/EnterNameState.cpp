@@ -3,6 +3,8 @@
 #include "core/StateMachine.h"
 #include "core/Resources.h"
 #include "states/WinState.h"
+#include "audio/SoundService.h"
+#include "audio/MusicService.h"
 #include "states/GameOverState.h"
 #include <cctype>
 
@@ -31,6 +33,14 @@ namespace ark
         m_prompt.setFillColor(sf::Color(220, 220, 220));
         m_prompt.setString("Press ENTER to confirm");
 
+        if (m_win)
+        {
+            if (m_ctx.music)
+                m_ctx.music->stop();
+            if (m_ctx.sfx)
+                m_ctx.sfx->playEnsure(Sfx::Win);
+        }
+
         if (m_ctx.window)
         {
             auto s = m_ctx.window->getSize();
@@ -53,19 +63,22 @@ namespace ark
     {
         if (e.type == sf::Event::TextEntered)
         {
-            char c = static_cast<char>(e.text.unicode);
-
-            if (std::isalpha((unsigned char)c) && m_name.size() < 8)
+            if (e.text.unicode < 128u)
             {
-                m_name += std::toupper(c);
-            }
-            else if (c == '\b' && !m_name.empty())
-            {
-                m_name.pop_back();
-            }
+                char c = static_cast<char>(e.text.unicode);
 
-            if (m_name.empty())
-                m_name = "";
+                if (std::isalpha(static_cast<unsigned char>(c)) && m_name.size() < 8)
+                {
+                    m_name += static_cast<char>(std::toupper(static_cast<unsigned char>(c)));
+                }
+                else if (c == '\b' && !m_name.empty())
+                {
+                    m_name.pop_back();
+                }
+
+                if (m_name.empty())
+                    m_name = "";
+            }
         }
         else if (e.type == sf::Event::KeyPressed &&
             e.key.code == sf::Keyboard::Enter)

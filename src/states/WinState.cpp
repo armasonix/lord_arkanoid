@@ -4,7 +4,6 @@
 #include "core/HighScoreTable.h"
 #include "states/PlayState.h"
 #include "states/MenuState.h"
-#include "audio/SoundService.h"
 #include "audio/MusicService.h"
 
 namespace ark
@@ -47,8 +46,6 @@ namespace ark
 
         if (m_ctx.music)
             m_ctx.music->stop();
-        if (m_ctx.sfx)
-            m_ctx.sfx->playEnsure(Sfx::Win);
     }
 
     void WinState::handleEvent(const sf::Event& e)

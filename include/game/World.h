@@ -2,12 +2,14 @@
 #include <SFML/Graphics.hpp>
 #include "Paddle.h"
 #include "Ball.h"
+#include "Bonus.h"
 #include "BlockGrid.h"
 #include "gfx/Starfield.h"
 #include "vfx/CameraShake.h"
 #include "core/GameEventBus.h"
 #include "core/GameSave.h"
 #include "core/SaveManager.h"
+#include <random>
 
 namespace ark
 {
@@ -28,6 +30,20 @@ namespace ark
         void resetBall();
         bool victory() const { return m_blocks.allDestroyed(); }
 
+        // modifiers toggled by bonuses
+        void enableFireBall();
+        void disableFireBall();
+        void enableFragileBlocks();
+        void disableFragileBlocks();
+        void enableRandomBounce();
+        void disableRandomBounce();
+        void enableSmallPaddle();
+        void disableSmallPaddle();
+        void enableSlowPaddle();
+        void disableSlowPaddle();
+        Ball& ball() { return m_ball; }
+        Paddle& paddle() { return m_paddle; }
+
         // memento / save system
         GameSave createSave() const;
         void     applySave(const GameSave& save);
@@ -36,7 +52,11 @@ namespace ark
 
     private:
         void handleBallBlocksCollision();
+        void updateBonuses(float dt);
         void updateLifeSystem();
+        void spawnBonus(const sf::Vector2f& pos);
+        void activateBonus(std::unique_ptr<BonusEffect> effect);
+        void resetBonusEffects();
 
         gfx::Starfield    m_starfield;
         sf::RenderWindow& m_window;
@@ -47,6 +67,13 @@ namespace ark
         Ball       m_ball;
         BlockGrid  m_blocks;
         CameraShake m_shake;
+        std::vector<std::unique_ptr<BonusPickup>> m_bonusPickups;
+        struct ActiveBonus
+        {
+            std::unique_ptr<BonusEffect> effect;
+            float timeLeft;
+        };
+        std::vector<ActiveBonus> m_activeBonuses;
 
         sf::RectangleShape m_boundsTop, m_boundsLeft, m_boundsRight;
         sf::View           m_baseView;
@@ -56,6 +83,13 @@ namespace ark
 
         int  m_lives = 2;
         bool m_gameOver = false;
+        bool m_fireBallActive{ false };
+        bool m_fragileBlocks{ false };
+        bool m_randomBounceActive{ false };
+        bool m_smallPaddleActive{ false };
+        bool m_slowPaddleActive{ false };
+        float m_fireballSpeedBoost{ 1.35f };
+        std::mt19937 m_rng{ std::random_device{}() };
     };
 
 } // namespace ark

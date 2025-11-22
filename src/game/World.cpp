@@ -55,7 +55,7 @@ namespace ark
         m_ball.update(dt, m_window, m_paddle);
 
         handleBallBlocksCollision();
-
+        updateBonuses(dt);
         updateLifeSystem();
 
         // shake and background
@@ -93,6 +93,11 @@ namespace ark
         rt.draw(m_boundsRight);
 
         m_blocks.render(rt);
+        for (auto& bonus : m_bonusPickups)
+        {
+            if (bonus->alive())
+                bonus->render(rt);
+        }
         m_paddle.render(rt);
         m_ball.render(rt);
 
@@ -126,12 +131,24 @@ namespace ark
             pos += man.normal * man.penetration;
 
             auto vel = m_ball.velocity();
-            float dot = vel.x * man.normal.x + vel.y * man.normal.y;
-            vel = vel - 2.f * dot * man.normal;
+            if (!m_fireBallActive)
+            {
+                float dot = vel.x * man.normal.x + vel.y * man.normal.y;
+                vel = vel - 2.f * dot * man.normal;
+            }
             m_ball.reset(pos, vel);
 
             if (b->alive())
-                b->onHit();
+            {
+                if (m_fireBallActive || m_fragileBlocks)
+                {
+                    while (b->alive()) b->onHit();
+                }
+                else
+                {
+                    b->onHit();
+                }
+            }
 
             bool destroyedNow = !b->alive();
 
@@ -149,6 +166,7 @@ namespace ark
                 }
 
                 m_events.dispatch(ev);
+                spawnBonus(b->position());
             }
 
             // shake
@@ -162,6 +180,167 @@ namespace ark
             }
             break;
         }
+    }
+
+    void World::updateBonuses(float dt)
+    {
+        for (auto& bonus : m_bonusPickups)
+        {
+            if (bonus->alive())
+                bonus->update(dt, m_window);
+        }
+
+        for (auto it = m_bonusPickups.begin(); it != m_bonusPickups.end();)
+        {
+            auto& bonus = *it;
+            if (bonus->alive() && bonus->tryCollect(m_paddle))
+            {
+                activateBonus(bonus->takeEffect());
+            }
+
+            if (!bonus->alive())
+            {
+                it = m_bonusPickups.erase(it);
+            }
+            else
+            {
+                ++it;
+            }
+        }
+
+        for (auto it = m_activeBonuses.begin(); it != m_activeBonuses.end();)
+        {
+            it->timeLeft -= dt;
+            if (it->timeLeft <= 0.f)
+            {
+                it->effect->revert(*this);
+                it = m_activeBonuses.erase(it);
+            }
+            else
+            {
+                ++it;
+            }
+        }
+    }
+
+    void World::spawnBonus(const sf::Vector2f& pos)
+    {
+        std::uniform_real_distribution<float> chance(0.f, 1.f);
+        if (chance(m_rng) > 0.10f)
+            return;
+
+        std::uniform_int_distribution<int> kinds(0, 4);
+        BonusKind kind = static_cast<BonusKind>(kinds(m_rng));
+        auto pickup = makeBonusPickup(kind, pos);
+        if (pickup)
+            m_bonusPickups.push_back(std::move(pickup));
+    }
+
+    void World::activateBonus(std::unique_ptr<BonusEffect> effect)
+    {
+        if (!effect)
+            return;
+
+        for (auto& active : m_activeBonuses)
+        {
+            if (active.effect->kind() == effect->kind())
+            {
+                active.timeLeft = effect->duration();
+                active.effect->refresh(*this);
+                return;
+            }
+        }
+
+        effect->apply(*this);
+        ActiveBonus ab{ std::move(effect), 0.f };
+        ab.timeLeft = ab.effect->duration();
+        m_activeBonuses.push_back(std::move(ab));
+    }
+
+    void World::resetBonusEffects()
+    {
+        for (auto& active : m_activeBonuses)
+        {
+            active.effect->revert(*this);
+        }
+        m_activeBonuses.clear();
+        m_bonusPickups.clear();
+
+        m_fireBallActive = false;
+        m_fragileBlocks = false;
+        m_randomBounceActive = false;
+        m_smallPaddleActive = false;
+        m_slowPaddleActive = false;
+
+        m_ball.setPiercing(false);
+        m_ball.setSpeedScale(1.f);
+        m_ball.setRandomBounce(false);
+        m_ball.setColor(m_ball.baseColor());
+
+        m_paddle.setSizeMultiplier(1.f);
+        m_paddle.setSpeedMultiplier(1.f);
+    }
+
+    void World::enableFireBall()
+    {
+        m_fireBallActive = true;
+        m_ball.setPiercing(true);
+        m_ball.setSpeedScale(m_fireballSpeedBoost);
+        m_ball.setColor(sf::Color(255, 160, 80));
+    }
+
+    void World::disableFireBall()
+    {
+        m_fireBallActive = false;
+        m_ball.setPiercing(false);
+        m_ball.setSpeedScale(1.f);
+        m_ball.setColor(m_ball.baseColor());
+    }
+
+    void World::enableFragileBlocks()
+    {
+        m_fragileBlocks = true;
+    }
+
+    void World::disableFragileBlocks()
+    {
+        m_fragileBlocks = false;
+    }
+
+    void World::enableRandomBounce()
+    {
+        m_randomBounceActive = true;
+        m_ball.setRandomBounce(true);
+    }
+
+    void World::disableRandomBounce()
+    {
+        m_randomBounceActive = false;
+        m_ball.setRandomBounce(false);
+    }
+
+    void World::enableSmallPaddle()
+    {
+        m_smallPaddleActive = true;
+        m_paddle.setSizeMultiplier(0.6f);
+    }
+
+    void World::disableSmallPaddle()
+    {
+        m_smallPaddleActive = false;
+        m_paddle.setSizeMultiplier(1.f);
+    }
+
+    void World::enableSlowPaddle()
+    {
+        m_slowPaddleActive = true;
+        m_paddle.setSpeedMultiplier(0.65f);
+    }
+
+    void World::disableSlowPaddle()
+    {
+        m_slowPaddleActive = false;
+        m_paddle.setSpeedMultiplier(1.f);
     }
 
     void World::updateLifeSystem()
@@ -227,6 +406,8 @@ namespace ark
 
     void World::applySave(const GameSave& s)
     {
+        resetBonusEffects();
+
         // ball
         m_ball.reset(s.ballPosition, s.ballVelocity);
 

@@ -92,7 +92,6 @@ namespace ark
         if (!m_winQueued && m_game && m_game->victory())
         {
             if (m_ctx.music) m_ctx.music->stop();
-            if (m_ctx.sfx)   m_ctx.sfx->playEnsure(Sfx::Win);
 
             int points = m_game->score().score();
             m_ctx.states->push<EnterNameState>(points, true);

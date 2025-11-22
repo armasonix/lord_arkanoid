@@ -3,7 +3,7 @@
 
 namespace ark
 {
-    enum class ObjKind { Paddle, Ball, Block, Unknown };
+    enum class ObjKind { Paddle, Ball, Block, Bonus, Unknown };
 
     struct CollisionManifold
     {

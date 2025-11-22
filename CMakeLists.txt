@@ -21,7 +21,7 @@ if (NOT SOURCES)
 endif()
 
 # exe
-add_executable(arkanoid ${SOURCES} "include/core/GameEvents.h" "include/core/GameEventBus.h" "src/core/GameEventBus.cpp" "include/core/ScoreSystem.h" "src/core/ScoreSystem.cpp" "include/core/HighScoreTable.h" "src/core/HighScoreTable.cpp" "include/states/HighScoresState.h" "src/states/HighScoresState.cpp" "include/core/HighScoreEntry.h" "include/states/EnterNameState.h" "src/states/EnterNameState.cpp" "include/core/GameSave.h" "include/core/SaveManager.h" "src/core/SaveManager.cpp")
+add_executable(arkanoid ${SOURCES} "include/core/GameEvents.h" "include/core/GameEventBus.h" "src/core/GameEventBus.cpp" "include/core/ScoreSystem.h" "src/core/ScoreSystem.cpp" "include/core/HighScoreTable.h" "src/core/HighScoreTable.cpp" "include/states/HighScoresState.h" "src/states/HighScoresState.cpp" "include/core/HighScoreEntry.h" "include/states/EnterNameState.h" "src/states/EnterNameState.cpp" "include/core/GameSave.h" "include/core/SaveManager.h" "src/core/SaveManager.cpp" "include/game/Bonus.h" "src/game/Bonus.cpp")
 
 # include
 target_include_directories(arkanoid PRIVATE

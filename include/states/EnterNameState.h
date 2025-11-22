@@ -14,7 +14,7 @@ namespace ark
 
         void onEnter() override;
         void handleEvent(const sf::Event& e) override;
-        void update(float dt) override {}
+        void update(float dt) override { static_cast<void>(dt); }
         void render(sf::RenderTarget& rt) override;
 
     private:
