@@ -50,6 +50,11 @@ CMakeLists.txt
 ## Architecture
 The game is organized around a thin **Application** shell that wires together input, audio, rendering, and the state machine. Gameplay lives inside a `Game` wrapper that owns the `World` and exposes save/restore hooks.
 
+<<<<<<< HEAD
+=======
+![UML diagram](./resources/UMLarkanoid.png)
+
+>>>>>>> ae78ed2 (feat: update readme file)
 ### Core
 - **Application** builds the render window, wires `ResourceManager`, `InputSystem`, audio services, the debug overlay, and the `StateMachine`, then runs the main loop.
 - **StateMachine / State** encapsulate screen transitions. Each state (Menu, Play, Win, GameOver, HighScores, EnterName) derives from `State` and owns only the data it needs.
